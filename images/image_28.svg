@@ -1,47 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"><svg xmlns="http://www.w3.org/2000/svg" width="1008" height="696" xmlns:xlink="http://www.w3.org/1999/xlink">
-<!-- Added by Dark Mode Patcher -->
-<style>
-    /* Default light mode styles */
-    :root {
-        --stroke-color: #000000;
-        --text-color: #000000;
-        --bg-yellow: #fff2cc;
-        --stroke-yellow: #d6b656;
-        --bg-purple: #e1d5e7;
-        --stroke-purple: #9673a6;
-    }
-
-    /* Dark mode styles */
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --stroke-color: #e0e0e0;      /* Light gray for strokes and text */
-            --text-color: #e0e0e0;
-            --bg-yellow: #4d442a;          /* Darker, muted yellow */
-            --stroke-yellow: #a88d44;
-            --bg-purple: #4b3e52;          /* Darker, muted purple */
-            --stroke-purple: #9673a6;
-        }
-    }
-
-    /* Apply the variables to the SVG elements */
-    path, ellipse[fill='#000000'] {
-        stroke: var(--stroke-color);
-        fill: var(--stroke-color);
-    }
-    g text, foreignObject div {
-        color: var(--text-color) !important;
-        fill: var(--text-color);
-    }
-    rect[fill='#fff2cc'] {
-        fill: var(--bg-yellow);
-        stroke: var(--stroke-yellow);
-    }
-    path[fill='#e1d5e7'] {
-        fill: var(--bg-purple);
-        stroke: var(--stroke-purple);
-    }
-</style>
-<source><![CDATA[Title: Checkout and Place an Order
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"><svg xmlns="http://www.w3.org/2000/svg" width="1008" height="696" xmlns:xlink="http://www.w3.org/1999/xlink"><source><![CDATA[Title: Checkout and Place an Order
 Customer->ShoppingCart: getItems()
 ShoppingCart-->Customer: Items
 Customer->Customer: getBillingInfo()
