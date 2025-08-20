@@ -35,14 +35,6 @@ The four principles of object-oriented programming are encapsulation, abstractio
 
 <!--THE END-->
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/m28YxDZ5kBr "Create")
-
 # OO Analysis and Design
 
 OO Analysis and Design is a structured method for analyzing and designing a system by applying object-oriented concepts.
@@ -62,14 +54,6 @@ exist in object-oriented analysis and design. UML diagrams are a representation 
 before learning UML, it is essential to understand OO concepts.
 
 Let’s find out how we can model using UML.
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/xV63Bo7kp6n "Create")
 
 # What is UML?
 
@@ -123,14 +107,6 @@ In this course, we will be focusing on the following UML diagrams:
 
 <!--THE END-->
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/7npMYmzm8DA "Create")
-
 # Use Case Diagrams
 
 Use case diagrams describe a set of actions (called use cases) that a system should or can perform in collaboration with
@@ -168,14 +144,6 @@ The different components of the use case diagram are:
   that some new steps will be inserted in the extended use case.
 
 <!--THE END-->
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/g7Lw3O0A2Aj "Create")
 
 # Class Diagram
 
@@ -247,14 +215,6 @@ Person and Account classes are abstract classes.
 
 ![widget](./images/image_18.svg)
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/7nX38BMK9NO "Create")
-
 # Sequence diagram
 
 Sequence diagrams describe interactions among classes in terms of an exchange of messages over time and are used to
@@ -277,14 +237,6 @@ putting each class instance inside a box (see above figure). If a class instance
 instance, draw a line with an open arrowhead pointing to the receiving class instance and place the name of the message
 above the line. Optionally, for important messages, you can draw a dotted line with an arrowhead pointing back to the
 originating class instance; label the returned value above the dotted line.
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/B8RPL3VEl8N "Create")
 
 # Activity Diagrams
 
@@ -310,8 +262,6 @@ flow of values from external inputs, through operations and internal data stores
 by tracking states, transitions between states, and the events that trigger these transitions.
 
 MenuOptionsNotes
-
-
 
 # Design Amazon - Online Shopping System
 
@@ -612,14 +562,6 @@ return productCategories.get(category);
 }
 ```
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/m2YWoEq06AR "Create")
-
 # Design Stack Overflow
 
 Stack Overflow is one of the largest online communities for developers to learn and share their knowledge. The website
@@ -897,14 +839,6 @@ private List<Photo> photos;
 public boolean incrementVoteCount();
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/gxkvNgMqDk3 "Create")
 
 # Design a Movie Ticket Booking System
 
@@ -1286,14 +1220,6 @@ return false;
 Read [JDBC Transaction Isolation Levels](https://docs.microsoft.com/en-us/sql/connect/jdbc/understanding-isolation-levels?view=sql-server-2017)
 for details.
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/m22LWKgQ4Wr "Create")
-
 # Design an ATM
 
 An automated teller machine (ATM) is an electronic telecommunications instrument that provides the clients of a
@@ -1624,14 +1550,6 @@ public int getDestinationAccount();
 }
 ```
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/RMjqP6Vw98R "Create")
-
 # Design an Airline Management System
 
 An Airline Management System is a managerial software which targets to control all operations of an airline. Airlines
@@ -1933,14 +1851,6 @@ public boolean makeReservation();
 public boolean makePayment();
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/YQ5gm2APRnp "Create")
 
 # Design Blackjack and a Deck of Cards
 
@@ -2378,14 +2288,6 @@ game.start();
 
 ```
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/39Ek39vZBy9 "Create")
-
 # Design a Hotel Management System
 
 Let's design a hotel management system.
@@ -2665,14 +2567,6 @@ public class KitchenService extends RoomCharge {
 public String description;
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/xV8p1GA6K0r "Create")
 
 # Design a Restaurant Management system
 
@@ -2998,14 +2892,6 @@ public OrderStatus getStatus();
 public boolean setStatus(OrderStatus status);
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/JP7BXYkj3DK "Create")
 
 # Design Chess
 
@@ -3473,14 +3359,6 @@ return true;
 }
 ```
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/RM8ol3m2o3w "Create")
-
 # Design an Online Stock Brokerage System
 
 Let's design an Online Stock Brokerage System.
@@ -3774,14 +3652,6 @@ activeOrders.remove(orderId);
 }
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/B8QoxDl6YON "Create")
 
 # Design a Car Rental System
 
@@ -4082,14 +3952,6 @@ return vehicleModels.get(query);
 }
 ```
 
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/gxMOMDVKlBk "Create")
-
 # Design LinkedIn
 
 Let's design LinkedIn.
@@ -4376,14 +4238,6 @@ return jobTitles.get(title);
 }
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/YQ7lDLlNl5A "Create")
 
 # Design Cricinfo
 
@@ -4679,14 +4533,6 @@ public class Test extends Match {
 //...
 }
 ```
-
-- VA
-- [Explore](/explore "Explore")
-- [Tracks](/tracks "Tracks")
-- [My Courses](/mycourses "My Courses")
-- [Edpresso](/edpresso "Edpresso")
-- [Refer a Friend](/refer-a-friend "refer a friend")
-- [Create](/courses/grokking-the-object-oriented-design-interview/7n94JNyPOMw "Create")
 
 # Design Facebook - a social network
 
