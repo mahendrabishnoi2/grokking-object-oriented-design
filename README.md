@@ -373,192 +373,205 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 
 public enum OrderStatus {
-UNSHIPPED, PENDING, SHIPPED, COMPLETED, CANCELED, REFUND_APPLIED
+    UNSHIPPED, PENDING, SHIPPED, COMPLETED, CANCELED, REFUND_APPLIED
 }
 
 public enum AccountStatus {
-ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
+    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
 }
 
 public enum ShipmentStatus {
-PENDING, SHIPPED, DELIVERED, ON_HOLD,
+    PENDING, SHIPPED, DELIVERED, ON_HOLD,
 }
 
 public enum PaymentStatus {
-UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
+    UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
 }
 ```
 
 **Account, Customer, Admin, and Guest:** These classes represent different people that interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter methods and modified only through their public methods function.
 
 public class Account {
-private String userName;
-private String password;
-private AccountStatus status;
-private String name;
-private Address shippingAddress;
-private String email;
-private String phone;
+    private String userName;
+    private String password;
+    private AccountStatus status;
+    private String name;
+    private Address shippingAddress;
+    private String email;
+    private String phone;
 
-private List<CreditCard> creditCards;
-private List<ElectronicBankTransfer> bankAccounts;
+    private List<CreditCard> creditCards;
+    private List<ElectronicBankTransfer> bankAccounts;
 
-public boolean addProduct(Product product);
-public boolean addProductReview(ProductReview review);
-public boolean resetPassword();
+    public boolean addProduct(Product product);
+
+    public boolean addProductReview(ProductReview review);
+
+    public boolean resetPassword();
 }
 
 public abstract class Customer {
-private ShoppingCart cart;
-private Order order;
+    private ShoppingCart cart;
+    private Order order;
 
-public ShoppingCart getShoppingCart();
-public bool addItemToCart(Item item);
-public bool removeItemFromCart(Item item);
+    public ShoppingCart getShoppingCart();
+
+    public bool addItemToCart(Item item);
+
+    public bool removeItemFromCart(Item item);
 }
 
 public class Guest extends Customer {
-public bool registerAccount();
+    public bool registerAccount();
 }
 
 public class Member extends Customer {
-private Account account;
-public OrderStatus placeOrder(Order order);
+    private Account account;
+
+    public OrderStatus placeOrder(Order order);
 }
 ```
 
 **ProductCategory, Product, and ProductReview:** Here are the classes related to a product:
 
-```
+```java
 public class ProductCategory {
-private String name;
-private String description;
+    private String name;
+    private String description;
 }
 
 public class ProductReview {
-private int rating;
-private String review;
+    private int rating;
+    private String review;
 
-private Member reviewer;
+    private Member reviewer;
 }
 
 public class Product {
-private String productID;
-private String name;
-private String description;
-private double price;
-private ProductCategory category;
-private int availableItemCount;
+    private String productID;
+    private String name;
+    private String description;
+    private double price;
+    private ProductCategory category;
+    private int availableItemCount;
 
-private Account seller;
+    private Account seller;
 
-public int getAvailableCount();
-public boolean updatePrice(double newPrice);
+    public int getAvailableCount();
+
+    public boolean updatePrice(double newPrice);
 }
 ```
 
 **ShoppingCart, Item, Order, and OrderLog:** Users will add items to the shopping cart and place an order to buy all the
 items in the cart.
 
-```
+```java
 public class Item {
-private String productID;
-private int quantity;
-private double price;
+    private String productID;
+    private int quantity;
+    private double price;
 
-public boolean updateQuantity(int quantity);
+    public boolean updateQuantity(int quantity);
 }
 
 public class ShoppingCart {
-private List<Items> items;
+    private List<Items> items;
 
-public boolean addItem(Item item);
-public boolean removeItem(Item item);
-public boolean updateItemQuantity(Item item, int quantity);
-public List<Item> getItems();
-public boolean checkout();
+    public boolean addItem(Item item);
+
+    public boolean removeItem(Item item);
+
+    public boolean updateItemQuantity(Item item, int quantity);
+
+    public List<Item> getItems();
+
+    public boolean checkout();
 }
 
 public class OrderLog {
-private String orderNumber;
-private Date creationDate;
-private OrderStatus status;
+    private String orderNumber;
+    private Date creationDate;
+    private OrderStatus status;
 }
 
 public class Order {
-private String orderNumber;
-private OrderStatus status;
-private Date orderDate;
-private List<OrderLog> orderLog;
+    private String orderNumber;
+    private OrderStatus status;
+    private Date orderDate;
+    private List<OrderLog> orderLog;
 
-public boolean sendForShipment();
-public boolean makePayment(Payment payment);
-public boolean addOrderLog(OrderLog orderLog);
+    public boolean sendForShipment();
+
+    public boolean makePayment(Payment payment);
+
+    public boolean addOrderLog(OrderLog orderLog);
 }
 ```
 
 **Shipment, ShipmentLog, and Notification:** After successfully placing an order, a shipment record will be created:
 
-```
+```java
 public class ShipmentLog {
-private String shipmentNumber;
-private ShipmentStatus status;
-private Date creationDate;
+    private String shipmentNumber;
+    private ShipmentStatus status;
+    private Date creationDate;
 }
 
 public class Shipment {
-private String shipmentNumber;
-private Date shipmentDate;
-private Date estimatedArrival;
-private String shipmentMethod;
-private List<ShipmentLog> shipmentLogs;
+    private String shipmentNumber;
+    private Date shipmentDate;
+    private Date estimatedArrival;
+    private String shipmentMethod;
+    private List<ShipmentLog> shipmentLogs;
 
-public boolean addShipmentLog(ShipmentLog shipmentLog);
+    public boolean addShipmentLog(ShipmentLog shipmentLog);
 }
 
 public abstract class Notification {
-private int notificationId;
-private Date createdOn;
-private String content;
+    private int notificationId;
+    private Date createdOn;
+    private String content;
 
-public boolean sendNotification(Account account);
+    public boolean sendNotification(Account account);
 }
 ```
 
 **Search interface and Catalog:** Catalog will implement Search to facilitate searching of products.
 
-```
+```java
 public interface Search {
-public List<Product> searchProductsByName(String name);
-public List<Product> searchProductsByCategory(String category);
+    public List<Product> searchProductsByName(String name);
+
+    public List<Product> searchProductsByCategory(String category);
 }
 
 public class Catalog implements Search {
-HashMap<String, List<Product>> productNames;
-HashMap<String, List<Product>> productCategories;
+    HashMap<String, List<Product>> productNames;
+    HashMap<String, List<Product>> productCategories;
 
-public List<Product> searchProductsByName(String name) {
-return productNames.get(name);
-}
+    public List<Product> searchProductsByName(String name) {
+        return productNames.get(name);
+    }
 
-public List<Product> searchProductsByCategory(String category) {
-return productCategories.get(category);
-}
+    public List<Product> searchProductsByCategory(String category) {
+        return productCategories.get(category);
+    }
 }
 ```
 
@@ -669,174 +682,182 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
-public enum QuestionStatus{
-OPEN,
-CLOSED,
-ON_HOLD,
-DELETED
+```java
+public enum QuestionStatus {
+    OPEN,
+    CLOSED,
+    ON_HOLD,
+    DELETED
 }
 
-public enum QuestionClosingRemark{
-DUPLICATE,
-OFF_TOPIC,
-TOO_BROAD,
-NOT_CONSTRUCTIVE,
-NOT_A_REAL_QUESTION,
-PRIMARILY_OPINION_BASED
+public enum QuestionClosingRemark {
+    DUPLICATE,
+    OFF_TOPIC,
+    TOO_BROAD,
+    NOT_CONSTRUCTIVE,
+    NOT_A_REAL_QUESTION,
+    PRIMARILY_OPINION_BASED
 }
 
-public enum AccountStatus{
-ACTIVE,
-CLOSED,
-CANCELED,
-BLACKLISTED,
-BLOCKED
+public enum AccountStatus {
+    ACTIVE,
+    CLOSED,
+    CANCELED,
+    BLACKLISTED,
+    BLOCKED
 }
 ```
 
 **Account, Member, Admin, and Moderator:** These classes represent the different people that interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter methods and modified only through their public methods function.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
-private String name;
-private Address address;
-private String email;
-private String phone;
-private int reputation;
+    private String id;
+    private String password;
+    private AccountStatus status;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
+    private int reputation;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public class Member {
-private Account account;
-private List<Badge> badges;
+    private Account account;
+    private List<Badge> badges;
 
-public int getReputation();
-public String getEmail();
-public boolean createQuestion(Question question);
-public boolean createTag(Tag tag);
+    public int getReputation();
+
+    public String getEmail();
+
+    public boolean createQuestion(Question question);
+
+    public boolean createTag(Tag tag);
 }
 
 public class Admin extends Member {
-public boolean blockMember(Member member);
-public boolean unblockMember(Member member);
+    public boolean blockMember(Member member);
+
+    public boolean unblockMember(Member member);
 }
 
 public class Moderator extends Member {
-public boolean closeQuestion(Question question);
-public boolean undeleteQuestion(Question question);
+    public boolean closeQuestion(Question question);
+
+    public boolean undeleteQuestion(Question question);
 }
 ```
 
 **Badge, Tag, and Notification:** Members have badges, questions have tags and notifications:
 
-```
+```java
 public class Badge {
-private String name;
-private String description;
+    private String name;
+    private String description;
 }
 
 public class Tag {
-private String name;
-private String description;
-private long dailyAskedFrequency;
-private long weeklyAskedFrequency;
+    private String name;
+    private String description;
+    private long dailyAskedFrequency;
+    private long weeklyAskedFrequency;
 }
 
 public class Notification {
-private int notificationId;
-private Date createdOn;
-private String content;
+    private int notificationId;
+    private Date createdOn;
+    private String content;
 
-public boolean sendNotification();
+    public boolean sendNotification();
 }
 ```
 
 **Photo and Bounty:** Members can put bounties on questions. Answers and Questions can have multiple photos:
 
-```
+```java
 public class Photo {
-private int photoId;
-private String photoPath;
-private Date creationDate;
+    private int photoId;
+    private String photoPath;
+    private Date creationDate;
 
-private Member creatingMember;
+    private Member creatingMember;
 
-public boolean delete();
+    public boolean delete();
 }
 
 public class Bounty {
-private int reputation;
-private Date expiry;
+    private int reputation;
+    private Date expiry;
 
-public boolean modifyReputation(int reputation);
+    public boolean modifyReputation(int reputation);
 }
 ```
 
 **Question, Comment and Answer:** Members can ask questions, as well as add an answer to any question. All members can
 add comments to all open questions or answers:
 
-```
+```java
 public interface Search {
-public static List<Question> search(String query);
+    public static List<Question> search(String query);
 }
 
 public class Question implements Search {
-private String title;
-private String description;
-private int viewCount;
-private int voteCount;
-private Date creationTime;
-private Date updateTime;
-private QuestionStatus status;
-private QuestionClosingRemark closingRemark;
+    private String title;
+    private String description;
+    private int viewCount;
+    private int voteCount;
+    private Date creationTime;
+    private Date updateTime;
+    private QuestionStatus status;
+    private QuestionClosingRemark closingRemark;
 
-private Member askingMember;
-private Bounty bounty;
-private List<Photo> photos;
-private List<Comment> comments;
-private List<Answer> answers;
+    private Member askingMember;
+    private Bounty bounty;
+    private List<Photo> photos;
+    private List<Comment> comments;
+    private List<Answer> answers;
 
-public boolean close();
-public boolean undelete();
-public boolean addComment(Comment comment);
-public boolean addBounty(Bounty bounty);
+    public boolean close();
 
-public static List<Question> search(String query) {
+    public boolean undelete();
+
+    public boolean addComment(Comment comment);
+
+    public boolean addBounty(Bounty bounty);
+
+    public static List<Question> search(String query) {
 // return all questions containing the string query in their title or description.
-}
+    }
 }
 
 public class Comment {
-private String text;
-private Date creationTime;
-private int flagCount;
-private int voteCount;
+    private String text;
+    private Date creationTime;
+    private int flagCount;
+    private int voteCount;
 
-private Member askingMember;
+    private Member askingMember;
 
-public boolean incrementVoteCount();
+    public boolean incrementVoteCount();
 }
 
 public class Answer {
-private String answerText;
-private boolean accepted;
-private int voteCount;
-private int flagCount;
-private Date creationTime;
+    private String answerText;
+    private boolean accepted;
+    private int voteCount;
+    private int flagCount;
+    private Date creationTime;
 
-private Member creatingMember;
-private List<Photo> photos;
+    private Member creatingMember;
+    private List<Photo> photos;
 
-public boolean incrementVoteCount();
+    public boolean incrementVoteCount();
 }
 ```
 
@@ -938,193 +959,203 @@ Here are the high-level definitions for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum BookingStatus {
-REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CANCELED, ABANDONED
+    REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CANCELED, ABANDONED
 }
 
 public enum SeatType {
-REGULAR, PREMIUM, ACCESSIBLE, SHIPPED, EMERGENCY_EXIT, OTHER
+    REGULAR, PREMIUM, ACCESSIBLE, SHIPPED, EMERGENCY_EXIT, OTHER
 }
 
 public enum AccountStatus {
-ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
+    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
 }
 
 public enum PaymentStatus {
-UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
+    UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Customer, Admin, FrontDeskOfficer, and Guest:** These classes represent the different people that interact
 with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 
-private Account account;
+    private Account account;
 }
 
 public class Customer extends Person {
-public boolean makeBooking(Booking booking);
-public List<Booking> getBookings();
+    public boolean makeBooking(Booking booking);
+
+    public List<Booking> getBookings();
 }
 
 public class Admin extends Person {
-public boolean addMovie(Movie movie);
-public boolean addShow(Show show);
-public boolean blockUser(Customer customer);
+    public boolean addMovie(Movie movie);
+
+    public boolean addShow(Show show);
+
+    public boolean blockUser(Customer customer);
 }
 
 public class FrontDeskOfficer extends Person {
-public boolean createBooking(Booking booking);
+    public boolean createBooking(Booking booking);
 }
 
 public class Guest {
-public bool registerAccount();
+    public bool registerAccount();
 }
 ```
 
 **Show and Movie:** A movie will have many shows:
 
-```
+```java
 public class Show {
-private int showId;
-private Date createdOn;
-private Date startTime;
-private Date endTime;
-private CinemaHall playedAt;
-private Movie movie;
+    private int showId;
+    private Date createdOn;
+    private Date startTime;
+    private Date endTime;
+    private CinemaHall playedAt;
+    private Movie movie;
 }
 
 public class Movie {
-private String title;
-private String description;
-private int durationInMins;
-private String language;
-private Date releaseDate;
-private String country;
-private String genre;
-private Admin movieAddedBy;
+    private String title;
+    private String description;
+    private int durationInMins;
+    private String language;
+    private Date releaseDate;
+    private String country;
+    private String genre;
+    private Admin movieAddedBy;
 
-private List<Show> shows;
-public List<Show> getShows();
+    private List<Show> shows;
+
+    public List<Show> getShows();
 }
 ```
 
 **Booking, ShowSeat, and Payment:** Customers will reserve seats with a booking and make a payment:
 
-```
+```java
 public class Booking {
-private String bookingNumber;
-private int numberOfSeats;
-private Date createdOn;
-private BookingStatus status;
+    private String bookingNumber;
+    private int numberOfSeats;
+    private Date createdOn;
+    private BookingStatus status;
 
-private Show show;
-private List<ShowSeat> seats;
-private Payment payment;
+    private Show show;
+    private List<ShowSeat> seats;
+    private Payment payment;
 
-public boolean makePayment(Payment payment);
-public boolean cancel();
-public boolean assignSeats(List<ShowSeat> seats);
+    public boolean makePayment(Payment payment);
+
+    public boolean cancel();
+
+    public boolean assignSeats(List<ShowSeat> seats);
 }
 
-public class ShowSeat extends CinemaHallSeat{
-private int showSeatId;
-private boolean isReserved;
-private double price;
+public class ShowSeat extends CinemaHallSeat {
+    private int showSeatId;
+    private boolean isReserved;
+    private double price;
 }
 
 public class Payment {
-private double amount;
-private Date createdOn;
-private int transactionId;
-private PaymentStatus status;
+    private double amount;
+    private Date createdOn;
+    private int transactionId;
+    private PaymentStatus status;
 }
 ```
 
 **City, Cinema, and CinemaHall:** Each city can have many cinemas and each cinema can have many cinema halls:
 
-```
+```java
 public class City {
-private String name;
-private String state;
-private String zipCode;
+    private String name;
+    private String state;
+    private String zipCode;
 }
 
 public class Cinema {
-private String name;
-private int totalCinemaHalls;
-private Address location;
+    private String name;
+    private int totalCinemaHalls;
+    private Address location;
 
-private List<CinemaHall> halls;
+    private List<CinemaHall> halls;
 }
 
 public class CinemaHall {
-private String name;
-private int totalSeats;
+    private String name;
+    private int totalSeats;
 
-private List<CinemaHallSeat> seats;
-private List<Show> shows;
+    private List<CinemaHallSeat> seats;
+    private List<Show> shows;
 }
 ```
 
 **Search interface and Catalog:** Catalog will implement Search to facilitate searching of products.
 
-```
+```java
 public interface Search {
-public List<Movie> searchByTitle(String title);
-public List<Movie> searchByLanguage(String language);
-public List<Movie> searchByGenre(String genre);
-public List<Movie> searchByReleaseDate(Date relDate);
-public List<Movie> searchByCity(String cityName);
+    public List<Movie> searchByTitle(String title);
+
+    public List<Movie> searchByLanguage(String language);
+
+    public List<Movie> searchByGenre(String genre);
+
+    public List<Movie> searchByReleaseDate(Date relDate);
+
+    public List<Movie> searchByCity(String cityName);
 }
 
 public class Catalog implements Search {
-HashMap<String, List<Movie>> movieTitles;
-HashMap<String, List<Movie>> movieLanguages;
-HashMap<String, List<Movie>> movieGenres;
-HashMap<Date, List<Movie>> movieReleaseDates;
-HashMap<String, List<Movie>> movieCities;
+    HashMap<String, List<Movie>> movieTitles;
+    HashMap<String, List<Movie>> movieLanguages;
+    HashMap<String, List<Movie>> movieGenres;
+    HashMap<Date, List<Movie>> movieReleaseDates;
+    HashMap<String, List<Movie>> movieCities;
 
-public List<Movie> searchByTitle(String title) {
-return movieTitles.get(title);
-}
+    public List<Movie> searchByTitle(String title) {
+        return movieTitles.get(title);
+    }
 
-public List<Movie> searchByLanguage(String language) {
-return movieLanguages.get(language);
-}
+    public List<Movie> searchByLanguage(String language) {
+        return movieLanguages.get(language);
+    }
 
 //...
 
-public List<Movie> searchByCity(String cityName) {
-return movieCities.get(cityName);
-}
+    public List<Movie> searchByCity(String cityName) {
+        return movieCities.get(cityName);
+    }
 }
 ```
 
@@ -1160,7 +1191,7 @@ successfully and no two customers will be able to reserve the same seat.
 
 Here is the sample Java code:
 
-```
+```java
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -1169,51 +1200,51 @@ import java.sql.ResultSet;
 
 public class Customer extends Person {
 
-public boolean makeBooking(Booking booking) {
-List<ShowSeat> seats = booking.getSeats();
-Integer seatIds[] = new Integer[seats.size()];
-int index = 0;
-for(ShowSeat seat : seats) {
-seatIds[index++] = seat.getShowSeatId();
-}
+    public boolean makeBooking(Booking booking) {
+        List<ShowSeat> seats = booking.getSeats();
+        Integer seatIds[] = new Integer[seats.size()];
+        int index = 0;
+        for (ShowSeat seat : seats) {
+            seatIds[index++] = seat.getShowSeatId();
+        }
 
-Connection dbConnection = null;
-try {
-dbConnection = getDBConnection();
-dbConnection.setAutoCommit(false);
+        Connection dbConnection = null;
+        try {
+            dbConnection = getDBConnection();
+            dbConnection.setAutoCommit(false);
 // ‘Serializable’ is the highest isolation level and guarantees safety from
 // Dirty, Nonrepeatable, and Phantoms reads
-dbConnection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            dbConnection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
-Statement st = dbConnection.createStatement();
-String selectSQL = "Select * From ShowSeat where ShowID=? && ShowSeatID in (?) && isReserved=0";
-PreparedStatement preparedStatement = dbConnection.prepareStatement(selectSQL);
-preparedStatement.setInt(1, booking.getShow().getShowId());
-Array array = dbConnection.createArrayOf("INTEGER", seatIds);
-preparedStatement.setArray(2, array);
+            Statement st = dbConnection.createStatement();
+            String selectSQL = "Select * From ShowSeat where ShowID=? && ShowSeatID in (?) && isReserved=0";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, booking.getShow().getShowId());
+            Array array = dbConnection.createArrayOf("INTEGER", seatIds);
+            preparedStatement.setArray(2, array);
 
-ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 // With TRANSACTION_SERIALIZABLE all the read rows will have the write lock, so we can
 // safely assume that no one else is modifying them.
-if (rs.next()) {
-rs.last(); // move to the last row, to calculate the row count
-int rowCount = rs.getRow();
+            if (rs.next()) {
+                rs.last(); // move to the last row, to calculate the row count
+                int rowCount = rs.getRow();
 // check if we have expected number of rows, if not, this means another process is
 // trying to process at least one of the same row, if that is the case we
 // should not process this booking.
-if(rowCount == seats.size()) {
-  // update ShowSeat table...
-  // update Booking table ...
-  dbConnection.commit();
-  return true;
-}
-}
-} catch (SQLException e) {
-dbConnection.rollback();
-System.out.println(e.getMessage());
-}
-return false;
-}
+                if (rowCount == seats.size()) {
+                    // update ShowSeat table...
+                    // update Booking table ...
+                    dbConnection.commit();
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            dbConnection.rollback();
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
 ```
 
@@ -1375,178 +1406,189 @@ Here is the skeleton code for the classes defined above:
 
 **Enums and Constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum TransactionType {
-BALANCE_INQUIRY, DEPOSIT_CASH, DEPOSIT_CHECK, WITHDRAW, TRANSFER
+    BALANCE_INQUIRY, DEPOSIT_CASH, DEPOSIT_CHECK, WITHDRAW, TRANSFER
 }
 
 public enum TransactionStatus {
-SUCCESS, FAILURE, BLOCKED, FULL, PARTIAL, NONE
+    SUCCESS, FAILURE, BLOCKED, FULL, PARTIAL, NONE
 }
 
 public enum CustomerStatus {
-ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, CLOSED, UNKNOWN
+    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, CLOSED, UNKNOWN
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Customer, Card, and Account:** “Customer” encapsulates the ATM user, “Card” the ATM card, and “Account” can be of two
 types: checking and savings:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter function.
 
 public class Customer {
-private String name;
-private String email;
-private String phone;
-private Address address;
-private CustomerStatus status;
+    private String name;
+    private String email;
+    private String phone;
+    private Address address;
+    private CustomerStatus status;
 
-private Card card;
-private Account account;
+    private Card card;
+    private Account account;
 
-public boolean makeTransaction(Transaction transaction);
-public Address getBillingAddress();
+    public boolean makeTransaction(Transaction transaction);
+
+    public Address getBillingAddress();
 }
 
 public class Card {
-private String cardNumber;
-private String customerName;
-private Date cardExpiry;
-private int pin;
+    private String cardNumber;
+    private String customerName;
+    private Date cardExpiry;
+    private int pin;
 
-public Address getBillingAddress();
+    public Address getBillingAddress();
 }
 
 public class Account {
-private int accountNumber;
-private double totalBalance;
-private double availableBalance;
+    private int accountNumber;
+    private double totalBalance;
+    private double availableBalance;
 
-public double getAvailableBalance();
+    public double getAvailableBalance();
 }
 
 public class SavingAccount extends Account {
-private double withdrawLimit;
+    private double withdrawLimit;
 }
 
 public class CheckingAccount extends Account {
-private String debitCardNumber;
+    private String debitCardNumber;
 }
 ```
 
 **Bank, ATM, CashDispenser, Keypad, Screen, Printer and DepositSlot:** The ATM will have different components like
 keypad, screen, etc.
 
-```
+```java
 public class Bank {
-private String name;
-private String bankCode;
+    private String name;
+    private String bankCode;
 
-public String getBankCode();
-public boolean addATM();
+    public String getBankCode();
+
+    public boolean addATM();
 }
 
 public class ATM {
-private int atmID;
-private Address location;
+    private int atmID;
+    private Address location;
 
-private CashDispenser cashDispenser;
-private Keypad keypad;
-private Screen screen;
-private Printer printer;
-private CheckDeposit checkDeposit;
-private CashDeposit cashDeposit;
+    private CashDispenser cashDispenser;
+    private Keypad keypad;
+    private Screen screen;
+    private Printer printer;
+    private CheckDeposit checkDeposit;
+    private CashDeposit cashDeposit;
 
-public boolean authenticateUser();
-public boolean makeTransaction(Customer customer, Transaction transaction);
+    public boolean authenticateUser();
+
+    public boolean makeTransaction(Customer customer, Transaction transaction);
 }
 
 public class CashDispenser {
-private int totalFiveDollarBills;
-private int totalTwentyDollarBills;
+    private int totalFiveDollarBills;
+    private int totalTwentyDollarBills;
 
-public boolean dispenseCash(double amount);
-public boolean canDispenseCash();
+    public boolean dispenseCash(double amount);
+
+    public boolean canDispenseCash();
 }
 
 public class Keypad {
-public String getInput();
+    public String getInput();
 }
 
 public class Screen {
-public boolean showMessage(String message);
-public TransactionType getInput();
+    public boolean showMessage(String message);
+
+    public TransactionType getInput();
 }
 
 public class Printer {
-public boolean printReceipt(Transaction transaction);
+    public boolean printReceipt(Transaction transaction);
 }
 
 public abstract class DepositSlot {
-private double totalAmount;
-public double getTotalAmount();
+    private double totalAmount;
+
+    public double getTotalAmount();
 }
 
 public class CheckDepositSlot extends DepositSlot {
-public double getCheckAmount();
+    public double getCheckAmount();
 }
 
 public class CashDepositSlot extends DepositSlot {
-public double receiveDollarBill();
+    public double receiveDollarBill();
 }
 ```
 
 **Transaction and its subclasses:** Customers can perform different transactions on the ATM, these classes encapsulate
 them:
 
-```
+```java
 public abstract class Transaction {
-private int transactionId;
-private Date creationTime;
-private TransactionStatus status;
-public boolean makeTransation();
+    private int transactionId;
+    private Date creationTime;
+    private TransactionStatus status;
+
+    public boolean makeTransation();
 }
 
 public class BalanceInquiry extends Transaction {
-private int accountId;
-public double getAccountId();
+    private int accountId;
+
+    public double getAccountId();
 }
 
 public abstract class Deposit extends Transaction {
-private double amount;
-public double getAmount();
+    private double amount;
+
+    public double getAmount();
 }
 
 public class CheckDeposit extends Deposit {
-private String checkNumber;
-private String bankCode;
+    private String checkNumber;
+    private String bankCode;
 
-public String getCheckNumber();
+    public String getCheckNumber();
 }
 
 public class CashDeposit extends Deposit {
-private double cashDepositLimit;
+    private double cashDepositLimit;
 }
 
 public class Withdraw extends Transaction {
-private double amount;
-public double getAmount();
+    private double amount;
+
+    public double getAmount();
 }
 
 public class Transfer extends Transaction {
-private int destinationAccountNumber;
-public int getDestinationAccount();
+    private int destinationAccountNumber;
+
+    public int getDestinationAccount();
 }
 ```
 
@@ -1652,203 +1694,208 @@ Here is the code for major classes.
 
 **Enums and Constants:** Here are the required enums, data types, and constants:
 
-```
-public enum FlightStatus{
-ACTIVE,
-SCHEDULED,
-DELAYED,
-DEPARTED,
-LANDED,
-IN_AIR,
-ARRIVED,
-CANCELLED,
-DIVERTED,
-UNKNOWN
+```java
+public enum FlightStatus {
+    ACTIVE,
+    SCHEDULED,
+    DELAYED,
+    DEPARTED,
+    LANDED,
+    IN_AIR,
+    ARRIVED,
+    CANCELLED,
+    DIVERTED,
+    UNKNOWN
 }
 
-public enum PaymentStatus{
-UNPAID,
-PENDING,
-COMPLETED,
-FILLED,
-DECLINED,
-CANCELLED,
-ABANDONED,
-SETTLING,
-SETTLED,
-REFUNDED
+public enum PaymentStatus {
+    UNPAID,
+    PENDING,
+    COMPLETED,
+    FILLED,
+    DECLINED,
+    CANCELLED,
+    ABANDONED,
+    SETTLING,
+    SETTLED,
+    REFUNDED
 }
 
-public enum ReservationStatus{
-REQUESTED,
-PENDING,
-CONFIRMED,
-CHECKED_IN,
-CANCELLED,
-ABANDONED
+public enum ReservationStatus {
+    REQUESTED,
+    PENDING,
+    CONFIRMED,
+    CHECKED_IN,
+    CANCELLED,
+    ABANDONED
 }
 
 public enum SeatClass {
-ECONOMY,
-ECONOMY_PLUS,
-PREFERRED_ECONOMY,
-BUSINESS,
-FIRST_CLASS
+    ECONOMY,
+    ECONOMY_PLUS,
+    PREFERRED_ECONOMY,
+    BUSINESS,
+    FIRST_CLASS
 }
 
 public enum SeatType {
-REGULAR,
-ACCESSIBLE,
-EMERGENCY_EXIT,
-EXTRA_LEG_ROOM
+    REGULAR,
+    ACCESSIBLE,
+    EMERGENCY_EXIT,
+    EXTRA_LEG_ROOM
 }
 
-public enum AccountStatus{
-ACTIVE,
-CLOSED,
-CANCELED,
-BLACKLISTED,
-BLOCKED
+public enum AccountStatus {
+    ACTIVE,
+    CLOSED,
+    CANCELED,
+    BLACKLISTED,
+    BLOCKED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Person, Customer and Passenger:** These classes represent the different people that interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 
-private Account account;
+    private Account account;
 }
 
 public class Customer extends Person {
-private String frequentFlyerNumber;
+    private String frequentFlyerNumber;
 
-public List<Itinerary> getItineraries();
+    public List<Itinerary> getItineraries();
 }
 
 public class Passenger {
-private String name;
-private String passportNumber;
-private Date dateOfBirth;
+    private String name;
+    private String passportNumber;
+    private Date dateOfBirth;
 
-public String getPassportNumber() {
-return this.passportNumber;
-}
+    public String getPassportNumber() {
+        return this.passportNumber;
+    }
 }
 ```
 
 **Airport, Aircraft, Seat and FlightSeat:** These classes represent the top-level classes of the system:
 
-```
+```java
 public class Airport {
-private String name;
-private Address address;
-private String code;
+    private String name;
+    private Address address;
+    private String code;
 
-public List<Flight> getFlights();
+    public List<Flight> getFlights();
 }
 
 public class Aircraft {
-private String name;
-private String model;
-private int manufacturingYear;
-private List<Seat> seats;
+    private String name;
+    private String model;
+    private int manufacturingYear;
+    private List<Seat> seats;
 
-public List<FlightInstance> getFlights();
+    public List<FlightInstance> getFlights();
 }
 
 public class Seat {
-private String seatNumber;
-private SeatType type;
-private SeatClass _class;
+    private String seatNumber;
+    private SeatType type;
+    private SeatClass _class;
 }
 
 public class FlightSeat extends Seat {
-private double fare;
-public double getFare();
+    private double fare;
+
+    public double getFare();
 }
 ```
 
 **Flight Schedule classes, Flight, FlightInstance, FlightReservation, Itinerary:** Here are the classes related to
 flights and reservations:
 
-```
+```java
 public class WeeklySchedule {
-private int dayOfWeek;
-private Time departureTime;
+    private int dayOfWeek;
+    private Time departureTime;
 }
 
 public class CustomSchedule {
-private Date customDate;
-private Time departureTime;
+    private Date customDate;
+    private Time departureTime;
 }
 
 public class Flight {
-private String flightNumber;
-private Airport departure;
-private Airport arrival;
-private int durationInMinutes;
+    private String flightNumber;
+    private Airport departure;
+    private Airport arrival;
+    private int durationInMinutes;
 
-private List<WeeklySchedules> weeklySchedules;
-private List<CustomSchedules> customSchedules;
-private List<FlightInstance> flightInstances;
+    private List<WeeklySchedules> weeklySchedules;
+    private List<CustomSchedules> customSchedules;
+    private List<FlightInstance> flightInstances;
 }
 
 public class FlightInstance {
-private Date departureTime;
-private String gate;
-private FlightStatus status;
-private Aircraft aircraft;
+    private Date departureTime;
+    private String gate;
+    private FlightStatus status;
+    private Aircraft aircraft;
 
-public bool cancel();
-public void updateStatus(FlightStatus status);
+    public bool cancel();
+
+    public void updateStatus(FlightStatus status);
 }
 
 public class FlightReservation {
-private String reservationNumber;
-private FlightInstance flight;
-private Map<Passenger, FlightSeat> seatMap;
-private Date creationDate;
-private ReservationStatus status;
+    private String reservationNumber;
+    private FlightInstance flight;
+    private Map<Passenger, FlightSeat> seatMap;
+    private Date creationDate;
+    private ReservationStatus status;
 
-public static FlightReservation fetchReservationDetails(String reservationNumber);
-public List<Passenger> getPassengers();
+    public static FlightReservation fetchReservationDetails(String reservationNumber);
+
+    public List<Passenger> getPassengers();
 }
 
 public class Itinerary {
-private String customerId;
-private Airport startingAirport;
-private Airport finalAirport;
-private Date creationDate;
-private List<FlightReservation> reservations;
+    private String customerId;
+    private Airport startingAirport;
+    private Airport finalAirport;
+    private Date creationDate;
+    private List<FlightReservation> reservations;
 
-public List<FlightReservation> getReservations();
-public boolean makeReservation();
-public boolean makePayment();
+    public List<FlightReservation> getReservations();
+
+    public boolean makeReservation();
+
+    public boolean makePayment();
 }
 ```
 
@@ -2007,283 +2054,292 @@ Class diagram
 
 **Enums:** Here are the required enums:
 
-```
+```java
 public enum SUIT {
-HEART, SPADE, CLUB, DIAMOND
+    HEART, SPADE, CLUB, DIAMOND
 }
 ```
 
 **Card:** The following class encapsulates a playing card:
 
-```
+```java
 public class Card {
-private SUIT suit;
-private int faceValue;
+    private SUIT suit;
+    private int faceValue;
 
-public SUIT getSuit() {
-return suit;
-}
+    public SUIT getSuit() {
+        return suit;
+    }
 
-public int getFaceValue() {
-return faceValue;
-}
+    public int getFaceValue() {
+        return faceValue;
+    }
 
-Card(SUIT suit, int faceValue) {
-this.suit = suit;
-this.faceVale = faceValue;
-}
+    Card(SUIT suit, int faceValue) {
+        this.suit = suit;
+        this.faceVale = faceValue;
+    }
 }
 ```
 
 **BlackjackCard:** BlackjackCard extends from Card class to represent a blackjack card:
 
-```
+```java
 public class BlackjackCard extends Card {
-private int gameValue;
+    private int gameValue;
 
-public int getGameValue() {
-return gameValue;
-}
+    public int getGameValue() {
+        return gameValue;
+    }
 
-public BlackjackCard(SUIT suit, int faceValue) {
-super(suit, faceValue);
-this.gameValue = faceValue;
-if(this.gameValue > 10) {
-this.gameValue = 10;
-}
-}
+    public BlackjackCard(SUIT suit, int faceValue) {
+        super(suit, faceValue);
+        this.gameValue = faceValue;
+        if (this.gameValue > 10) {
+            this.gameValue = 10;
+        }
+    }
 }
 ```
 
 **Deck and Shoe:** Shoe contains cards from multiple decks:
 
-```
+```java
 public class Deck {
-private List<BlackjackCard> cards;
-private Date creationDate;
+    private List<BlackjackCard> cards;
+    private Date creationDate;
 
-public Deck() {
-this.creationDate = new Date();
-this.cards = new ArrayList<BlackjackCard>();
-for(int value = 1 ; value <= 13 ; value++){
-for(SUIT suit : SUIT.values()){
-this.cards.add(new BlackjackCard(suit, value));
-}
-}
-}
+    public Deck() {
+        this.creationDate = new Date();
+        this.cards = new ArrayList<BlackjackCard>();
+        for (int value = 1; value <= 13; value++) {
+            for (SUIT suit : SUIT.values()) {
+                this.cards.add(new BlackjackCard(suit, value));
+            }
+        }
+    }
 
-public List<BlackjackCard> getCards() {
-return cards;
-}
+    public List<BlackjackCard> getCards() {
+        return cards;
+    }
 
-public class Shoe {
-private List<BlackjackCard> cards;
-private int numberOfDecks;
+    public class Shoe {
+        private List<BlackjackCard> cards;
+        private int numberOfDecks;
 
-private void createShoe() {
-this.cards = new ArrayList<BlackjackCard>();
-for(int decks = 0 ; decks < numberOfDecks ; decks++){
-cards.add(new Deck().getCards());
-}
-}
+        private void createShoe() {
+            this.cards = new ArrayList<BlackjackCard>();
+            for (int decks = 0; decks < numberOfDecks; decks++) {
+                cards.add(new Deck().getCards());
+            }
+        }
 
-public Shoe(int numberOfDecks) {
-this.numberOfDecks = numberOfDecks;
-createShoe();
-shuffle();
-}
+        public Shoe(int numberOfDecks) {
+            this.numberOfDecks = numberOfDecks;
+            createShoe();
+            shuffle();
+        }
 
-public void shuffle() {
-int cardCount = cards.size();
-Random r = new Random();
-for (int i = 0; i < cardCount ; i++){
-int index = r.nextInt(cardCount-i-1);
-swap(i, index);
-}
-}
+        public void shuffle() {
+            int cardCount = cards.size();
+            Random r = new Random();
+            for (int i = 0; i < cardCount; i++) {
+                int index = r.nextInt(cardCount - i - 1);
+                swap(i, index);
+            }
+        }
 
-public void swap(int i, int j) {
-BlackjackCard temp = cards[i];
-cards[i] = cards[j];
-cards[j] = temp;
-}
+        public void swap(int i, int j) {
+            BlackjackCard temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
+        }
 
-//Get the next card from the shoe
-public BlackjackCard dealCard() {
-if(cards.size() == 0 ){
-createShoe();
-}
-return cards.remove(0);
-}
+        //Get the next card from the shoe
+        public BlackjackCard dealCard() {
+            if (cards.size() == 0) {
+                createShoe();
+            }
+            return cards.remove(0);
+        }
+    }
 }
 ```
 
 **Hand:** Hand class encapsulates a blackjack hand which can contain multiple cards:
 
-```
+```java
 public class Hand {
-private ArrayList<BlackjackCard> cards;
+    private ArrayList<BlackjackCard> cards;
 
-private List<Integer> getScores() {
-List<Integer> totals = new ArrayList();
-total.add(0);
+    private List<Integer> getScores() {
+        List<Integer> totals = new ArrayList();
+        total.add(0);
 
-for (BlackjackCard card : cards) {
-List<Integer> newTotals = new ArrayList();
-for (int score : totals) {
-newTotals.add(card.faceValue() + score);
-if (card.faceValue() == 1) {
-  newTotals.add(11 + score);
-}
-}
-totals = newTotals;
-}
-return totals;
-}
+        for (BlackjackCard card : cards) {
+            List<Integer> newTotals = new ArrayList();
+            for (int score : totals) {
+                newTotals.add(card.faceValue() + score);
+                if (card.faceValue() == 1) {
+                    newTotals.add(11 + score);
+                }
+            }
+            totals = newTotals;
+        }
+        return totals;
+    }
 
-public Hand(BlackjackCard c1, BlackjackCard c2) {
-this.cards = new ArrayList<BlackjackCard>();
-this.cards.add(c1);
-this.cards.add(c2);
-}
+    public Hand(BlackjackCard c1, BlackjackCard c2) {
+        this.cards = new ArrayList<BlackjackCard>();
+        this.cards.add(c1);
+        this.cards.add(c2);
+    }
 
-public void addCard(BlackjackCard card) {
-cards.add(card);
-}
+    public void addCard(BlackjackCard card) {
+        cards.add(card);
+    }
 
-// get highest score which is less than or equal to 21
-public int resolveScore() {
-List<Integer> scores = getScores();
-int bestScore = 0;
-for (int score : scores) {
-if (score <= 21 && score > bestScore) {
-bestScore = score;
-}
-}
-return bestScore;
-}
+    // get highest score which is less than or equal to 21
+    public int resolveScore() {
+        List<Integer> scores = getScores();
+        int bestScore = 0;
+        for (int score : scores) {
+            if (score <= 21 && score > bestScore) {
+                bestScore = score;
+            }
+        }
+        return bestScore;
+    }
 }
 ```
 
 **Player:** Player class extends from BasePlayer:
 
-```
+```java
 public abstract class BasePlayer {
-private String id;
-private String password;
-private double balance;
-private AccountStatus status;
-private Person person;
-private List<Hand> hands;
+    private String id;
+    private String password;
+    private double balance;
+    private AccountStatus status;
+    private Person person;
+    private List<Hand> hands;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 
-public List<Hand> getHands() {
-return hands;
-}
+    public List<Hand> getHands() {
+        return hands;
+    }
 
-public void addHand(Hand hand) {
-return hands.add(hand);
-}
+    public void addHand(Hand hand) {
+        return hands.add(hand);
+    }
 
-public void removeHand(Hand hand) {
-hands.remove(hand);
-}
+    public void removeHand(Hand hand) {
+        hands.remove(hand);
+    }
 }
 
 public class Player extends BasePlayer {
-private int bet;
-private int totalCash;
+    private int bet;
+    private int totalCash;
 
-public Player(Hand hand) {
-this.hands = new ArrayList<Hand>();
-this.hands.add(hand);
-}
+    public Player(Hand hand) {
+        this.hands = new ArrayList<Hand>();
+        this.hands.add(hand);
+    }
 }
 ```
 
 **Game:** This class encapsulates a blackjack game:
 
-```
+```java
 public class Game {
-private Player player;
-private Dealer dealer;
-private Shoe shoe;
-private final int MAX_NUM_OF_DECKS = 3;
+    private Player player;
+    private Dealer dealer;
+    private Shoe shoe;
+    private final int MAX_NUM_OF_DECKS = 3;
 
-private void playAction(string action, Hand hand) {
-switch(action) {
-case "hit": hit(hand); break;
-case "split": split(hand); break;
-case "stand pat": break; //do nothing
-case "stand": stand(); break;
-default: print("Wrong input");
-}
-}
+    private void playAction(string action, Hand hand) {
+        switch (action) {
+            case "hit":
+                hit(hand);
+                break;
+            case "split":
+                split(hand);
+                break;
+            case "stand pat":
+                break; //do nothing
+            case "stand":
+                stand();
+                break;
+            default:
+                print("Wrong input");
+        }
+    }
 
-private void hit(Hand hand) {
-hand.addCard(shoe.dealCard());
-}
+    private void hit(Hand hand) {
+        hand.addCard(shoe.dealCard());
+    }
 
-private void stand() {
-int dealerScore = dealer.getTotalScore();
-int playerScore = player.getTotalScore();
-List<Hand> hands = player.getHands();
-for(Hand hand : hands) {
-int bestScore = hand.resolveScore();
-if(playerScore == 21){
+    private void stand() {
+        int dealerScore = dealer.getTotalScore();
+        int playerScore = player.getTotalScore();
+        List<Hand> hands = player.getHands();
+        for (Hand hand : hands) {
+            int bestScore = hand.resolveScore();
+            if (playerScore == 21) {
 //blackjack, pay 3:2 of the bet
-} else if (playerScore > dealerScore) {
+            } else if (playerScore > dealerScore) {
 // pay player equal to the bet
-} else if (playerScore < dealerScore) {
+            } else if (playerScore < dealerScore) {
 // collect the bet from the player
-} else { //tie
+            } else { //tie
 // bet goes back to player
-}
-}
-}
+            }
+        }
+    }
 
-private void split(Hand hand) {
-Cards cards = hand.getCards();
-player.addHand(new Hand(cards[0], shoe.dealCard()));
-player.addHand(new Hand(cards[1], shoe.dealCard()));
-player.removeHand(hand);
-}
+    private void split(Hand hand) {
+        Cards cards = hand.getCards();
+        player.addHand(new Hand(cards[0], shoe.dealCard()));
+        player.addHand(new Hand(cards[1], shoe.dealCard()));
+        player.removeHand(hand);
+    }
 
 
-public Game(Player player, Dealer dealer) {
-this.player = player;
-this.dealer = dealeer;
-Shoe shoe= new Shoe(MAX_NUM_OF_DECKS);
-}
+    public Game(Player player, Dealer dealer) {
+        this.player = player;
+        this.dealer = dealeer;
+        Shoe shoe = new Shoe(MAX_NUM_OF_DECKS);
+    }
 
-public void start() {
-player.placeBet(getBetFromUI());
+    public void start() {
+        player.placeBet(getBetFromUI());
 
-Hand playerHand = new Hand(shoe.dealCard(), shoe.dealCard());
-player.addToHand(playerHand);
+        Hand playerHand = new Hand(shoe.dealCard(), shoe.dealCard());
+        player.addToHand(playerHand);
 
-Hand dealerHand = new Hand(shoe.dealCard(), shoe.dealCard());
-dealer.addToHand(dealerHand);
+        Hand dealerHand = new Hand(shoe.dealCard(), shoe.dealCard());
+        dealer.addToHand(dealerHand);
 
-while(true){
-List<Hand> hands = player.getHands();
-for(Hand hand : hands) {
-string action = getUserAction(hand);
-playAction(action, hand);
-if(action.equals("stand")) {
-  break;
-}
-}
-}
-}
+        while (true) {
+            List<Hand> hands = player.getHands();
+            for (Hand hand : hands) {
+                string action = getUserAction(hand);
+                playAction(action, hand);
+                if (action.equals("stand")) {
+                    break;
+                }
+            }
+        }
+    }
 
-public static void main(String args[]) {
-Player player = new Player();
-Dealer dealer = new Dealer();
-Game game = new Game(player, dealer);
-game.start();
-}
+    public static void main(String args[]) {
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+        Game game = new Game(player, dealer);
+        game.start();
+    }
 }
 
 ```
@@ -2387,184 +2443,188 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum RoomStyle {
-STANDARD, DELUXE, FAMILY_SUITE, BUSINESS_SUITE
+    STANDARD, DELUXE, FAMILY_SUITE, BUSINESS_SUITE
 }
 
 public enum RoomStatus {
-AVAILABLE, RESERVED, OCCUPIED, NOT_AVAILABLE, BEING_SERVICED, OTHER
+    AVAILABLE, RESERVED, OCCUPIED, NOT_AVAILABLE, BEING_SERVICED, OTHER
 }
 
 public enum BookingStatus {
-REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CHECKED_OUT, CANCELLED, ABANDONED
+    REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CHECKED_OUT, CANCELLED, ABANDONED
 }
 
 public enum AccountStatus {
-ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
+    ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
 }
 
 public enum AccountType {
-MEMBER, GUEST, MANAGER, RECEPTIONIST
+    MEMBER, GUEST, MANAGER, RECEPTIONIST
 }
 
 public enum PaymentStatus {
-UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
+    UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Person, Guest, Receptionist, and Server:** These classes represent the different people that interact with
 our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 
-private Account account;
+    private Account account;
 }
 
 
 public class Guest extends Person {
-private int totalRoomsCheckedIn;
+    private int totalRoomsCheckedIn;
 
-public List<RoomBooking> getBookings();
+    public List<RoomBooking> getBookings();
 }
 
 public class Receptionist extends Person {
-public List<Member> searchMember(String name);
-public boolean createBooking();
+    public List<Member> searchMember(String name);
+
+    public boolean createBooking();
 }
 
 public class Server extends Person {
-public boolean addRoomCharge(Room room, RoomCharge roomCharge);
+    public boolean addRoomCharge(Room room, RoomCharge roomCharge);
 }
 ```
 
 **Hotel and HotelLocation:** These classes represent the top-level classes of the system:
 
-```
+```java
 public class HotelLocation {
-private String name;
-private Address location;
+    private String name;
+    private Address location;
 
-public Address getRooms();
+    public Address getRooms();
 }
 
 public class Hotel {
-private String name;
-private List<HotelLocation> locations;
+    private String name;
+    private List<HotelLocation> locations;
 
-public boolean addLocation(HotelLocation location);
+    public boolean addLocation(HotelLocation location);
 }
 ```
 
 **Room, RoomKey, and RoomHouseKeeping:** To encapsulate a room, room key, and housekeeping:
 
-```
+```java
 public interface Search {
-public static List<Room> search(RoomStyle style, Date startDate, int duration);
+    public static List<Room> search(RoomStyle style, Date startDate, int duration);
 }
 
 public class Room implements Search {
-private String roomNumber;
-private RoomStyle style;
-private RoomStatus status;
-private double bookingPrice;
-private boolean isSmoking;
+    private String roomNumber;
+    private RoomStyle style;
+    private RoomStatus status;
+    private double bookingPrice;
+    private boolean isSmoking;
 
-private List<RoomKey> keys;
-private List<RoomHouseKeeping> houseKeepingLog;
+    private List<RoomKey> keys;
+    private List<RoomHouseKeeping> houseKeepingLog;
 
-public boolean isRoomAvailable();
-public boolean checkIn();
-public boolean checkOut();
+    public boolean isRoomAvailable();
 
-public static List<Room> search(RoomStyle style, Date startDate, int duration) {
+    public boolean checkIn();
+
+    public boolean checkOut();
+
+    public static List<Room> search(RoomStyle style, Date startDate, int duration) {
 // return all rooms with the given style and availability
-}
+    }
 }
 
 public class RoomKey {
-private String keyId;
-private String barcode;
-private Date issuedAt;
-private boolean active;
-private boolean isMaster;
+    private String keyId;
+    private String barcode;
+    private Date issuedAt;
+    private boolean active;
+    private boolean isMaster;
 
-public boolean assignRoom(Room room);
-public boolean isActive();
+    public boolean assignRoom(Room room);
+
+    public boolean isActive();
 }
 
-public class RoomHouseKeeping
-{
-private String description;
-private Date startDatetime;
-private int duration;
-private HouseKeeper houseKeeper;
+public class RoomHouseKeeping {
+    private String description;
+    private Date startDatetime;
+    private int duration;
+    private HouseKeeper houseKeeper;
 
-public boolean addHouseKeeping(Room room);
+    public boolean addHouseKeeping(Room room);
 }
 ```
 
 **RoomBooking and RoomCharge:** To encapsulate a booking and different charges against a booking:
 
-```
+```java
 public class RoomBooking {
-private String reservationNumber;
-private Date startDate;
-private int durationInDays;
-private BookingStatus status;
-private Date checkin;
-private Date checkout;
+    private String reservationNumber;
+    private Date startDate;
+    private int durationInDays;
+    private BookingStatus status;
+    private Date checkin;
+    private Date checkout;
 
-private int guestID;
-private Room room;
-private Invoice invoice;
-private List<Notification> notifications;
+    private int guestID;
+    private Room room;
+    private Invoice invoice;
+    private List<Notification> notifications;
 
-public static RoomBooking fectchDetails(String reservationNumber);
+    public static RoomBooking fectchDetails(String reservationNumber);
 }
 
 public abstract class RoomCharge {
-public Date issueAt;
-public boolean addInvoiceItem(Invoice invoice);
+    public Date issueAt;
+
+    public boolean addInvoiceItem(Invoice invoice);
 }
 
 public class Amenity extends RoomCharge {
-public String name;
-public String description;
+    public String name;
+    public String description;
 }
 
 public class RoomService extends RoomCharge {
-public boolean isChargeable;
-public Date requestTime;
+    public boolean isChargeable;
+    public Date requestTime;
 }
 
 public class KitchenService extends RoomCharge {
-public String description;
+    public String description;
 }
 ```
 
@@ -2669,227 +2729,234 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum ReservationStatus {
-REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CANCELED, ABANDONED
+    REQUESTED, PENDING, CONFIRMED, CHECKED_IN, CANCELED, ABANDONED
 }
 
 public enum SeatType {
-REGULAR, KID, ACCESSIBLE, OTHER
+    REGULAR, KID, ACCESSIBLE, OTHER
 }
 
 public enum OrderStatus {
-RECEIVED, PREPARING, COMPLETED, CANCELED, NONE
+    RECEIVED, PREPARING, COMPLETED, CANCELED, NONE
 }
 
 public enum TableStatus {
-FREE, RESERVED, OCCUPIED, OTHER
+    FREE, RESERVED, OCCUPIED, OTHER
 }
 
 public enum AccountStatus {
-ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
+    ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
 }
 
 public enum PaymentStatus {
-UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
+    UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Person, Employee, Receptionist, Manager, and Chef:** These classes represent the different people that
 interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter methods and modified only through their public setter function.
 
 public class Account {
-private String id;
-private String password;
-private Address address;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private Address address;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private String email;
-private String phone; 
+    private String name;
+    private String email;
+    private String phone;
 }
 
 
 public abstract class Employee extends Person {
-private int employeeID;
-private Date dateJoined;
+    private int employeeID;
+    private Date dateJoined;
 
-private Account account;
+    private Account account;
 }
 
 public class Receptionist extends Employee {
-public boolean createReservation();
-public List<Customer> searchCustomer(String name);
+    public boolean createReservation();
+
+    public List<Customer> searchCustomer(String name);
 }
 
 public class Manager extends Employee {
-public boolean addEmployee();
+    public boolean addEmployee();
 }
 
 public class Chef extends Employee {
-public boolean takeOrder();
+    public boolean takeOrder();
 }
 ```
 
 **Restaurant, Branch, Kitchen, TableChart:** These classes represent the top-level classes of the system:
 
-```
+```java
 public class Kitchen {
-private String name;
-private Chef[] chefs;
+    private String name;
+    private Chef[] chefs;
 
-private boolean assignChef();
+    private boolean assignChef();
 }
 
 public class Branch {
-private String name;
-private Address location;
-private Kitchen kitchen;
+    private String name;
+    private Address location;
+    private Kitchen kitchen;
 
-public Address addTableChart();
+    public Address addTableChart();
 }
 
 public class Restaurant {
-private String name;
-private List<Branch> branches;
+    private String name;
+    private List<Branch> branches;
 
-public boolean addBranch(Branch branch);
+    public boolean addBranch(Branch branch);
 }
 
 public class TableChart {
-private int tableChartID;
-private byte[] tableChartImage;
+    private int tableChartID;
+    private byte[] tableChartImage;
 
-public bool print();
+    public bool print();
 }
 ```
 
 **Table, TableSeat, and Reservation:** Each table can have multiple seats and customers can make reservations for
 tables:
 
-```
+```java
 public class Table {
-private int tableID;
-private TableStatus status;
-private int maxCapacity;
-private int locationIdentifier;
+    private int tableID;
+    private TableStatus status;
+    private int maxCapacity;
+    private int locationIdentifier;
 
-private List<TableSeat> seats;
+    private List<TableSeat> seats;
 
-public boolean isTableFree();
-public boolean addReservation();
+    public boolean isTableFree();
 
-public static List<Table> search(int capacity, Date startTime) {
+    public boolean addReservation();
+
+    public static List<Table> search(int capacity, Date startTime) {
 // return all tables with the given capacity and availability
-}
+    }
 }
 
 public class TableSeat {
-private int tableSeatNumber;
-private SeatType type;
+    private int tableSeatNumber;
+    private SeatType type;
 
-public boolean updateSeatType(SeatType type);
+    public boolean updateSeatType(SeatType type);
 }
 
 public class Reservation {
-private int reservationID;
-private Date timeOfReservation;
-private int peopleCount;
-private ReservationStatus status;
-private String notes;
-private Date checkinTime;
-private Customer customer;
+    private int reservationID;
+    private Date timeOfReservation;
+    private int peopleCount;
+    private ReservationStatus status;
+    private String notes;
+    private Date checkinTime;
+    private Customer customer;
 
-private Table[] tables;
-private List<Notification> notifications;
-public boolean updatePeopleCount(int count);
+    private Table[] tables;
+    private List<Notification> notifications;
+
+    public boolean updatePeopleCount(int count);
 }
 ```
 
 **Menu, MenuSection, and MenuItem:** Each restaurant branch will have its own menu, each menu will have multiple menu
 sections, which will contain menu items:
 
-```
+```java
 public class MenuItem {
-private int menuItemID;
-private String title;
-private String description;
-private double price;
+    private int menuItemID;
+    private String title;
+    private String description;
+    private double price;
 
-public boolean updatePrice(double price);
+    public boolean updatePrice(double price);
 }
 
 public class MenuSection {
-private int menuSectionID;
-private String title;
-private String description;
-private List<MenuItem> menuItems;
+    private int menuSectionID;
+    private String title;
+    private String description;
+    private List<MenuItem> menuItems;
 
-public boolean addMenuItem(MenuItem menuItem);
+    public boolean addMenuItem(MenuItem menuItem);
 }
 
 public class Menu {
-private int menuID;
-private String title;
-private String description;
-private List<MenuSection> menuSections;
+    private int menuID;
+    private String title;
+    private String description;
+    private List<MenuSection> menuSections;
 
-public boolean addMenuSection(MenuSection menuSection);
-public boolean print();
+    public boolean addMenuSection(MenuSection menuSection);
+
+    public boolean print();
 }
 ```
 
 **Order, Meal, and MealItem:** Each order will have meals for table seats:
 
-```
+```java
 public class MealItem {
-private int mealItemID;
-private int quantity;
-private MenuItem menuItem;
+    private int mealItemID;
+    private int quantity;
+    private MenuItem menuItem;
 
-public boolean updateQuantity(int quantity);
+    public boolean updateQuantity(int quantity);
 }
 
 public class Meal {
-private int mealID;
-private TableSeat seat;
-private List<MenuItem> menuItems;
+    private int mealID;
+    private TableSeat seat;
+    private List<MenuItem> menuItems;
 
-public boolean addMealItem(MealItem mealItem);
+    public boolean addMealItem(MealItem mealItem);
 }
 
 public class Order {
-private int OrderID;
-private OrderStatus status;
-private Date creationTime;
+    private int OrderID;
+    private OrderStatus status;
+    private Date creationTime;
 
-private Meal[] meals;
-private Table table;
-private Check check;
-private Waiter waiter;
-private Chef chef;
+    private Meal[] meals;
+    private Table table;
+    private Check check;
+    private Waiter waiter;
+    private Chef chef;
 
-public boolean addMeal(Meal meal);
-public boolean removeMeal(Meal meal);
-public OrderStatus getStatus();
-public boolean setStatus(OrderStatus status);
+    public boolean addMeal(Meal meal);
+
+    public boolean removeMeal(Meal meal);
+
+    public OrderStatus getStatus();
+
+    public boolean setStatus(OrderStatus status);
 }
 ```
 
@@ -2971,391 +3038,391 @@ Here is the code for the top use cases.
 
 **Enums, DataTypes, Constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum GameStatus {
-ACTIVE, BLACK_WIN, WHITE_WIN, FORFEIT, STALEMATE, RESIGNATION
+    ACTIVE, BLACK_WIN, WHITE_WIN, FORFEIT, STALEMATE, RESIGNATION
 }
 
 public enum AccountStatus {
-ACTIVE, CLOSED, CANCELED, BLACKLISTED, NONE
+    ACTIVE, CLOSED, CANCELED, BLACKLISTED, NONE
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 
 public class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 }
 ```
 
 **Box:** To encapsulate a cell on the chess board:
 
-```
+```java
 public class Box {
-private Piece piece;
-private int x;
-private int y;
+    private Piece piece;
+    private int x;
+    private int y;
 
-public Box(int x, int y, Piece piece) {
-this.setPiece(piece);
-this.setX(x);
-this.setY(y);
-}
+    public Box(int x, int y, Piece piece) {
+        this.setPiece(piece);
+        this.setX(x);
+        this.setY(y);
+    }
 
-public Piece getPiece() {
-return this.piece;
-}
+    public Piece getPiece() {
+        return this.piece;
+    }
 
-public void setPiece(Piece p) {
-this.piece = p;
-}
+    public void setPiece(Piece p) {
+        this.piece = p;
+    }
 
-public int getX() {
-return this.x;
-}
+    public int getX() {
+        return this.x;
+    }
 
-public void setX(int x) {
-this.x = x;
-}
+    public void setX(int x) {
+        this.x = x;
+    }
 
-public int getY() {
-return this.y;
-}
+    public int getY() {
+        return this.y;
+    }
 
-public void setY(int y) {
-this.y = y;
-}
+    public void setY(int y) {
+        this.y = y;
+    }
 }
 ```
 
 **Piece:** An abstract class to encapsulate common functionality of all chess pieces:
 
-```
+```java
 public abstract class Piece {
 
-private boolean killed = false;
-private boolean white = false;
+    private boolean killed = false;
+    private boolean white = false;
 
-public Piece(boolean white) {
-this.setWhite(white);
-}
+    public Piece(boolean white) {
+        this.setWhite(white);
+    }
 
-public boolean isWhite() {
-return this.white == true;
-}
+    public boolean isWhite() {
+        return this.white == true;
+    }
 
-public void setWhite(boolean white) {
-this.white = white;
-}
+    public void setWhite(boolean white) {
+        this.white = white;
+    }
 
-public boolean isKilled() {
-return this.killed == true;
-}
+    public boolean isKilled() {
+        return this.killed == true;
+    }
 
-public void setKilled(boolean killed) {
-this.killed = killed;
-}
+    public void setKilled(boolean killed) {
+        this.killed = killed;
+    }
 
-public abstract boolean canMove(Board board, Box start, Box end);
+    public abstract boolean canMove(Board board, Box start, Box end);
 }
 ```
 
 **King:** To encapsulate King as a chess piece:
 
-```
+```java
 public class King extends Piece {
-private boolean castlingDone = false;
+    private boolean castlingDone = false;
 
-public King(boolean white) {
-super(white);
-}
+    public King(boolean white) {
+        super(white);
+    }
 
-public boolean isCastlingDone() {
-return this.castlingDone == true;
-}
+    public boolean isCastlingDone() {
+        return this.castlingDone == true;
+    }
 
-public void setCastlingDone(boolean castlingDone) {
-this.castlingDone = castlingDone;
-}
+    public void setCastlingDone(boolean castlingDone) {
+        this.castlingDone = castlingDone;
+    }
 
-@Override
-public boolean canMove(Board board, Box start, Box end) {
+    @Override
+    public boolean canMove(Board board, Box start, Box end) {
 // we can't move the piece to a box that has a piece of the same color
-if(end.getPiece().isWhite() == this.isWhite()) {
-return false;
-}
+        if (end.getPiece().isWhite() == this.isWhite()) {
+            return false;
+        }
 
-int x = Math.abs(start.getX() - end.getX());
-int y = Math.abs(start.getY() - end.getY());
-if(x + y == 1) {
+        int x = Math.abs(start.getX() - end.getX());
+        int y = Math.abs(start.getY() - end.getY());
+        if (x + y == 1) {
 // check if this move will not result in king being attacked, if so return true
-return true;
-}
+            return true;
+        }
 
-return this.isValidCastling(board, start, end);
-}
+        return this.isValidCastling(board, start, end);
+    }
 
-private boolean isValidCastling(Board board, Box start, Box end) {
+    private boolean isValidCastling(Board board, Box start, Box end) {
 
-if(this.isCastlingDone()) {
-return false;
-}
+        if (this.isCastlingDone()) {
+            return false;
+        }
 
 // check for the white king castling
-if(this.isWhite()
-&& start.getX() == 0 && start.getY() == 4 && end.getY() == 0) {
+        if (this.isWhite()
+                && start.getX() == 0 && start.getY() == 4 && end.getY() == 0) {
 // confirm if white king moved to the correct ending box
-if (Math.abs(end.getY() - start.getY()) == 2) {
-  // check if there the Rook is in the correct position
-  // check if there is no piece between Rook and the King
-  // check if the King or the Rook has not moved before
-  // check if this move will not result in king being attacked
-  //...
-  this.setCastlingDone(true);
-  return true;
-}
-} else {
+            if (Math.abs(end.getY() - start.getY()) == 2) {
+                // check if there the Rook is in the correct position
+                // check if there is no piece between Rook and the King
+                // check if the King or the Rook has not moved before
+                // check if this move will not result in king being attacked
+                //...
+                this.setCastlingDone(true);
+                return true;
+            }
+        } else {
 // check for the black king castling
-this.setCastlingDone(true);
-return true;
-}
+            this.setCastlingDone(true);
+            return true;
+        }
 
-return false;
-}
+        return false;
+    }
 
-public boolean isCastlingMove(Box start, Box end) {
+    public boolean isCastlingMove(Box start, Box end) {
 // check if the starting and ending position are correct
-}
+    }
 }
 ```
 
 **Knight:** To encapsulate Knight as a chess piece:
 
-```
+```java
 public class Knight extends Piece {
-public Knight(boolean white) {
-super(white);
-}
+    public Knight(boolean white) {
+        super(white);
+    }
 
-@Override
-public boolean canMove(Board board, Box start, Box end) {
+    @Override
+    public boolean canMove(Board board, Box start, Box end) {
 
 // we can't move the piece to a box that has a piece of the same color
-if(end.getPiece().isWhite() == this.isWhite()) {
-return false;
-}
+        if (end.getPiece().isWhite() == this.isWhite()) {
+            return false;
+        }
 
-int x = Math.abs(start.getX() - end.getX());
-int y = Math.abs(start.getY() - end.getY());
-return x * y == 2;
-}
+        int x = Math.abs(start.getX() - end.getX());
+        int y = Math.abs(start.getY() - end.getY());
+        return x * y == 2;
+    }
 }
 
 ```
 
 **Board:** To encapsulate a chess board:
 
-```
+```java
 public class Board {
-Box[][] boxes;
+    Box[][] boxes;
 
-public Board() {
-this.resetBoard();
-}
+    public Board() {
+        this.resetBoard();
+    }
 
-public Box getBox(int x, int y) {
+    public Box getBox(int x, int y) {
 
-if (x < 0 || x > 7 || y < 0 || y > 7) {
-throw new Exception("Index out of bound");
-}
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
+            throw new Exception("Index out of bound");
+        }
 
-return boxes[x][y];
-}
+        return boxes[x][y];
+    }
 
-public void resetBoard() {
+    public void resetBoard() {
 // initialize white pieces
-boxes[0][0] = new Box(0, 0, new Rook(true));
-boxes[0][1] = new Box(0, 1, new Knight(true));
-boxes[0][2] = new Box(0, 2, new Bishop(true));
+        boxes[0][0] = new Box(0, 0, new Rook(true));
+        boxes[0][1] = new Box(0, 1, new Knight(true));
+        boxes[0][2] = new Box(0, 2, new Bishop(true));
 //...
-boxes[1][0] = new Box(1, 0, new Pawn(true));
-boxes[1][1] = new Box(1, 1, new Pawn(true));
+        boxes[1][0] = new Box(1, 0, new Pawn(true));
+        boxes[1][1] = new Box(1, 1, new Pawn(true));
 //...
 
 // initialize black pieces
-boxes[7][0] = new Box(7, 0, new Rook(false));
-boxes[7][1] = new Box(7, 1, new Knight(false));
-boxes[7][2] = new Box(7, 2, new Bishop(false));
+        boxes[7][0] = new Box(7, 0, new Rook(false));
+        boxes[7][1] = new Box(7, 1, new Knight(false));
+        boxes[7][2] = new Box(7, 2, new Bishop(false));
 //...
-boxes[6][0] = new Box(6, 0, new Pawn(false));
-boxes[6][1] = new Box(6, 1, new Pawn(false));
+        boxes[6][0] = new Box(6, 0, new Pawn(false));
+        boxes[6][1] = new Box(6, 1, new Pawn(false));
 //...
 
 // initialize remaining boxes without any piece
-for (int i = 2; i < 6; i++) {
-for (int j = 0; j < 8; j++) {
-boxes[i][j] = new Box(i, j, null);
-}
-}
-}
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                boxes[i][j] = new Box(i, j, null);
+            }
+        }
+    }
 }
 ```
 
 **Player:** To encapsulate a chess player:
 
-```
-public class Player extends Account{
-private Person person;
-private boolean whiteSide = false;
+```java
+public class Player extends Account {
+    private Person person;
+    private boolean whiteSide = false;
 
-public Player(Person person, boolean whiteSide){
-this.person = person;
-this.whiteSide = whiteSide;
-}
+    public Player(Person person, boolean whiteSide) {
+        this.person = person;
+        this.whiteSide = whiteSide;
+    }
 
-public boolean isWhiteSide() {
-return this.whiteSide == true;
-}
+    public boolean isWhiteSide() {
+        return this.whiteSide == true;
+    }
 }
 ```
 
 **Move:** To encapsulate a chess move:
 
-```
+```java
 public class Move {
-private Player player;
-private Box start;
-private Box end;
-private Piece pieceMoved;
-private Piece pieceKilled;
-private boolean castlingMove = false;
+    private Player player;
+    private Box start;
+    private Box end;
+    private Piece pieceMoved;
+    private Piece pieceKilled;
+    private boolean castlingMove = false;
 
-public Move(Player player, Box start, Box end){
-this.player = player;
-this.start = start;
-this.end = end;
-this.pieceMoved = start.getPiece();
-}
+    public Move(Player player, Box start, Box end) {
+        this.player = player;
+        this.start = start;
+        this.end = end;
+        this.pieceMoved = start.getPiece();
+    }
 
-public boolean isCastlingMove() {
-return this.castlingMove == true;
-}
+    public boolean isCastlingMove() {
+        return this.castlingMove == true;
+    }
 
-public void setCastlingMove(boolean castlingMove) {
-this.castlingMove = castlingMove;
-}
+    public void setCastlingMove(boolean castlingMove) {
+        this.castlingMove = castlingMove;
+    }
 }
 ```
 
 **Game:** To encapsulate a chess game:
 
-```
+```java
 public class Game {
-private Player[] players;
-private Board board;
-private Player currentTurn;
-private GameStatus status;
-private List<Move> movesPlayed;
+    private Player[] players;
+    private Board board;
+    private Player currentTurn;
+    private GameStatus status;
+    private List<Move> movesPlayed;
 
-private void initialize(Player p1, Player p2) {
-players[0] = p1;
-players[1] = p2;
+    private void initialize(Player p1, Player p2) {
+        players[0] = p1;
+        players[1] = p2;
 
-board.resetBoard();
+        board.resetBoard();
 
-if(p1.isWhiteSide()) {
-this.currentTurn = p1;
-} else {
-this.currentTurn = p2;
-}
+        if (p1.isWhiteSide()) {
+            this.currentTurn = p1;
+        } else {
+            this.currentTurn = p2;
+        }
 
-movesPlayed.clear();
-}
+        movesPlayed.clear();
+    }
 
-public boolean isEnd() {
-return this.getStatus() != GameStatus.ACTIVE;
-}
+    public boolean isEnd() {
+        return this.getStatus() != GameStatus.ACTIVE;
+    }
 
-public boolean getStatus() {
-return this.status;
-}
+    public boolean getStatus() {
+        return this.status;
+    }
 
-public void setStatus(GameStatus status) {
-this.status = status;
-}
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
 
-public boolean playerMove(Player player, int startX, int startY, int endX, int endY) {
-Box startBox = board.getBox(startX, startY);
-Box endBox = board.getBox(startY, endY);
-Move move = new Move(player, startBox, endBox);
-return this.makeMove(move, player);
-}
+    public boolean playerMove(Player player, int startX, int startY, int endX, int endY) {
+        Box startBox = board.getBox(startX, startY);
+        Box endBox = board.getBox(startY, endY);
+        Move move = new Move(player, startBox, endBox);
+        return this.makeMove(move, player);
+    }
 
-private boolean makeMove(Move move, Player player) {
-Piece sourcePiece = move.getStart().getPiece();
-if (sourcePiece == null) {
-return false;
-}
+    private boolean makeMove(Move move, Player player) {
+        Piece sourcePiece = move.getStart().getPiece();
+        if (sourcePiece == null) {
+            return false;
+        }
 
 // valid player
-if (player != currentTurn) {
-return false;
-}
+        if (player != currentTurn) {
+            return false;
+        }
 
-if (sourcePiece.isWhite() != player.isWhiteSide()) {
-return false;
-}
+        if (sourcePiece.isWhite() != player.isWhiteSide()) {
+            return false;
+        }
 
 // valid move?
-if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
-return false;
-}
+        if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
+            return false;
+        }
 
 // kill?
-Piece destPiece = move.getStart().getPiece();
-if (destPiece != null) {
-destPiece.setKilled(true);
-move.setPieceKilled(destPiece);
-}
+        Piece destPiece = move.getStart().getPiece();
+        if (destPiece != null) {
+            destPiece.setKilled(true);
+            move.setPieceKilled(destPiece);
+        }
 
 // castling?
-if (sourcePiece != null && sourcePiece instanceof King
-&& sourcePiece.isCastlingMove()) {
-move.setCastlingMove(true);
-}
+        if (sourcePiece != null && sourcePiece instanceof King
+                && sourcePiece.isCastlingMove()) {
+            move.setCastlingMove(true);
+        }
 
 // store the move
-movesPlayed.add(move);
+        movesPlayed.add(move);
 
 // move piece from the stat box to end box
-move.getEnd().setPiece(move.getStart().getPiece());
-move.getStart.setPiece(null);
+        move.getEnd().setPiece(move.getStart().getPiece());
+        move.getStart.setPiece(null);
 
-if (destPiece != null && destPiece instanceof King) {
-if(player.isWhiteSide()) {
-this.setStatus(GameStatus.WHITE_WIN);
-} else {
-this.setStatus(GameStatus.BLACK_WIN);
-}
-}
+        if (destPiece != null && destPiece instanceof King) {
+            if (player.isWhiteSide()) {
+                this.setStatus(GameStatus.WHITE_WIN);
+            } else {
+                this.setStatus(GameStatus.BLACK_WIN);
+            }
+        }
 
 // set the current turn to the other player
-if(this.currentTurn == players[0]) {
-this.currentTurn = players[1];
-} else {
-this.currentTurn = players[0];
-}
+        if (this.currentTurn == players[0]) {
+            this.currentTurn = players[1];
+        } else {
+            this.currentTurn = players[0];
+        }
 
-return true;
-}
+        return true;
+    }
 }
 ```
 
@@ -3467,189 +3534,187 @@ Here is the code for the top use cases.
 
 **Enums and Constants:** Here are the required enums and constants:
 
-```
+```java
 public enum ReturnStatus {
-SUCCESS, FAIL, INSUFFICIENT_FUNDS, INSUFFICIENT_QUANTITY, NO_STOCK_POSITION
+    SUCCESS, FAIL, INSUFFICIENT_FUNDS, INSUFFICIENT_QUANTITY, NO_STOCK_POSITION
 }
 
 public enum OrderStatus {
-OPEN, FILLED, PARTIALLY_FILLED, CANCELLED
+    OPEN, FILLED, PARTIALLY_FILLED, CANCELLED
 }
 
 public enum TimeEnforcementType {
-GOOD_TILL_CANCELLED, FILL_OR_KILL, IMMEDIATE_OR_CANCEL, ON_THE_OPEN, ON_THE_CLOSE
+    GOOD_TILL_CANCELLED, FILL_OR_KILL, IMMEDIATE_OR_CANCEL, ON_THE_OPEN, ON_THE_CLOSE
 }
 
 public enum AccountStatus {
-ACTIVE, CLOSED, CANCELED, BLACKLISTED, None
+    ACTIVE, CLOSED, CANCELED, BLACKLISTED, None
 }
 
 public class Location {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 
 public static class Constants {
-public static final int MONEY_TRANSFER_LIMIT = 100_000;
+    public static final int MONEY_TRANSFER_LIMIT = 100_000;
 }
 ```
 
 **StockExchange:** To encapsulate all the interactions with the stock exchange:
 
-```
+```java
 public class StockExchange {
 
-private static StockExchange stockExchangeInstance = null;
+    private static StockExchange stockExchangeInstance = null;
 
-// private constructor to restrict for singleton
-private StockExchange() { }
+    // private constructor to restrict for singleton
+    private StockExchange() {
+    }
 
-// static method to get the singleton instance of StockExchange
-public static StockExchange getInstance()
-{
-if(stockExchangeInstance == null) {
-stockExchangeInstance = new StockExchange();
-}
-return stockExchangeInstance;
-}
+    // static method to get the singleton instance of StockExchange
+    public static StockExchange getInstance() {
+        if (stockExchangeInstance == null) {
+            stockExchangeInstance = new StockExchange();
+        }
+        return stockExchangeInstance;
+    }
 
-public static boolean placeOrder(Order order) {
-boolean returnStatus = getInstance().submitOrder(Order);
-return returnStatus;
-}
+    public static boolean placeOrder(Order order) {
+        boolean returnStatus = getInstance().submitOrder(Order);
+        return returnStatus;
+    }
 }
 ```
 
 **Order:** To encapsulate all buy or sell orders:
 
-```
+```java
 public abstract class Order {
-private String orderNumber;
-public boolean isBuyOrder;
-private OrderStatus status;
-private TimeEnforcementType timeEnforcement;
-private Date creationTime;
+    private String orderNumber;
+    public boolean isBuyOrder;
+    private OrderStatus status;
+    private TimeEnforcementType timeEnforcement;
+    private Date creationTime;
 
-private HashMap<Integer, OrderPart> parts;
+    private HashMap<Integer, OrderPart> parts;
 
-public void setStatus(OrderStatus status){
-this.status = status;
-}
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
-public bool saveInDB() {
+    public bool saveInDB() {
 // save in the database
-}
+    }
 
-public void addOrderParts(OrderParts parts) {
-for (OrderPart part : parts) {
-this.parts.put(part.id, part);
-}
-}
+    public void addOrderParts(OrderParts parts) {
+        for (OrderPart part : parts) {
+            this.parts.put(part.id, part);
+        }
+    }
 }
 
 public class LimitOrder extends Order {
-private double priceLimit;
+    private double priceLimit;
 }
 ```
 
 **Member:** Members will be buying and selling stocks:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter methods and modified only through their public methods function.
 
 public abstract class Account {
-private String id;
-private String password;
-private String name;
-private AccountStatus status;
-private Location address;
-private String email;
-private String phone;
+    private String id;
+    private String password;
+    private String name;
+    private AccountStatus status;
+    private Location address;
+    private String email;
+    private String phone;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public class Member extends Account {
-private double availableFundsForTrading;
-private Date dateOfMembership;
+    private double availableFundsForTrading;
+    private Date dateOfMembership;
 
-private HashMap<string, StockPosition> stockPositions;
+    private HashMap<string, StockPosition> stockPositions;
 
-private HashMap<Integer, Order> activeOrders;
+    private HashMap<Integer, Order> activeOrders;
 
-public ErrorCode placeSellLimitOrder(
-string stockId,
-float quantity,
-int limitPrice,
-TimeEnforcementType enforcementType )
-{
+    public ErrorCode placeSellLimitOrder(
+            string stockId,
+            float quantity,
+            int limitPrice,
+            TimeEnforcementType enforcementType) {
 // check if member has this stock position
-if(!stockPositions.containsKey(stockId)){
-return NO_STOCK_POSITION;
-}
+        if (!stockPositions.containsKey(stockId)) {
+            return NO_STOCK_POSITION;
+        }
 
-StockPosition stockPosition = stockPosition.get(stockId);
+        StockPosition stockPosition = stockPosition.get(stockId);
 // check if the member has enough quantity available to sell
-if(stockPosition.getQuantity() < quantity){
-return INSUFFICIENT_QUANTITY;
-}
+        if (stockPosition.getQuantity() < quantity) {
+            return INSUFFICIENT_QUANTITY;
+        }
 
-LimitOrder order =
-new LimitOrder(stockId, quantity, limitPrice, enforcementType);
-order.isBuyOrder = false;
-order.saveInDB();
-boolean success = StockExchange::placeOrder(order);
-if(!success){
-order.setStatus(OrderStatus::FAILED);
-order.saveInDB();
-} else {
-activeOrders.add(orderId, order);
-}
-return success;
-}
+        LimitOrder order =
+                new LimitOrder(stockId, quantity, limitPrice, enforcementType);
+        order.isBuyOrder = false;
+        order.saveInDB();
+        boolean success = StockExchange::placeOrder (order);
+        if (!success) {
+            order.setStatus(OrderStatus::FAILED);
+            order.saveInDB();
+        } else {
+            activeOrders.add(orderId, order);
+        }
+        return success;
+    }
 
-public ErrorCode placeBuyLimitOrder(
-string stockId,
-float quantity,
-int limitPrice,
-TimeEnforcementType enforcementType)
-{
+    public ErrorCode placeBuyLimitOrder(
+            string stockId,
+            float quantity,
+            int limitPrice,
+            TimeEnforcementType enforcementType) {
 // check if the member has enough funds to buy this stock
-if(availableFundsForTrading < quantity * limitPrice ){
-return INSUFFICIENT_FUNDS;
-}
+        if (availableFundsForTrading < quantity * limitPrice) {
+            return INSUFFICIENT_FUNDS;
+        }
 
-LimitOrder order =
-new LimitOrder(stockId, quantity, limitPrice, enforcementType);
-order.isBuyOrder = true;
-order.saveInDB();
-boolean success = StockExchange::placeOrder(order);
-if(!success){
-order.setStatus(OrderStatus::FAILED);
-order.saveInDB();
-} else {
-activeOrders.add(orderId, order);
-}
-return success;
-}
+        LimitOrder order =
+                new LimitOrder(stockId, quantity, limitPrice, enforcementType);
+        order.isBuyOrder = true;
+        order.saveInDB();
+        boolean success = StockExchange::placeOrder (order);
+        if (!success) {
+            order.setStatus(OrderStatus::FAILED);
+            order.saveInDB();
+        } else {
+            activeOrders.add(orderId, order);
+        }
+        return success;
+    }
 
-// this function will be invoked whenever there is an update from
+    // this function will be invoked whenever there is an update from
 // stock exchange against an order
-public void callbackStockExchange(int orderId, List<OrderPart> orderParts, OrderStatus status) {
-Order order = activeOrders.get(orderId);
-order.addOrderParts(orderParts);
-order.setStatus(status);
-order.updateInDB();
+    public void callbackStockExchange(int orderId, List<OrderPart> orderParts, OrderStatus status) {
+        Order order = activeOrders.get(orderId);
+        order.addOrderParts(orderParts);
+        order.setStatus(status);
+        order.updateInDB();
 
-if (status == OrderStatus::FILLED || status == OrderStatus::CANCELLEd) {
-activeOrders.remove(orderId);
-}
-}
+        if (status == OrderStatus::FILLED || status == OrderStatus::CANCELLEd) {
+            activeOrders.remove(orderId);
+        }
+    }
 }
 ```
 
@@ -3751,141 +3816,141 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum BillItemType {
-BASE_CHARGE, ADDITIONAL_SERVICE, FINE, OTHER
+    BASE_CHARGE, ADDITIONAL_SERVICE, FINE, OTHER
 }
 
 public enum VehicleLogType {
-ACCIDENT, FUELING, CLEANING_SERVICE, OIL_CHANGE, REPAIR, OTHER
+    ACCIDENT, FUELING, CLEANING_SERVICE, OIL_CHANGE, REPAIR, OTHER
 }
 
 public enum VanType {
-PASSENGER, CARGO
+    PASSENGER, CARGO
 }
 
 public enum CarType {
-ECONOMY, COMPACT, INTERMEDIATE, STANDARD, FULL_SIZE, PREMIUM, LUXURY
+    ECONOMY, COMPACT, INTERMEDIATE, STANDARD, FULL_SIZE, PREMIUM, LUXURY
 }
 
 public enum VehicleStatus {
-AVAILABLE, RESERVED, LOANED, LOST, BEING_SERVICED, OTHER
+    AVAILABLE, RESERVED, LOANED, LOST, BEING_SERVICED, OTHER
 }
 
 public enum ReservationStatus {
-ACTIVE, PENDING, CONFIRMED, COMPLETED, CANCELLED, NONE
+    ACTIVE, PENDING, CONFIRMED, COMPLETED, CANCELLED, NONE
 }
 
 public enum AccountStatus {
-ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
+    ACTIVE, CLOSED, CANCELED, BLACKLISTED, BLOCKED
 }
 
 public enum PaymentStatus {
-UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
+    UNPAID, PENDING, COMPLETED, FILLED, DECLINED, CANCELLED, ABANDONED, SETTLING, SETTLED, REFUNDED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 
 public class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 }
 ```
 
 **Account, Member, Receptionist, and Additional Driver:** These classes represent different people that interact with
 our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public abstract class Account {
-private String id;
-private String password;
-private AccountStatus status;
-private Person person;
+    private String id;
+    private String password;
+    private AccountStatus status;
+    private Person person;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public class Member extends Account {
-private int totalVehiclesReserved;
+    private int totalVehiclesReserved;
 
-public List<VehicleReservation> getReservations();
+    public List<VehicleReservation> getReservations();
 }
 
 public class Receptionist extends Account {
-private Date dateJoined;
+    private Date dateJoined;
 
-public List<Member> searchMember(String name);
+    public List<Member> searchMember(String name);
 }
 
 public class AdditionalDriver {
-private String driverID;
-private Person person;
+    private String driverID;
+    private Person person;
 }
 ```
 
 **CarRentalSystem and CarRentalLocation:** These classes represent the top level classes:
 
-```
+```java
 public class CarRentalLocation {
-private String name;
-private Address location;
+    private String name;
+    private Address location;
 
-public Address getLocation();
+    public Address getLocation();
 }
 
 public class CarRentalSystem {
-private String name;
-private List<CarRentalLocation> locations;
+    private String name;
+    private List<CarRentalLocation> locations;
 
-public boolean addNewLocation(CarRentalLocation location);
+    public boolean addNewLocation(CarRentalLocation location);
 }
 ```
 
 **Vehicle, VehicleLog, and VehicleReservation:** To encapsulate a vehicle, log, and reservation. The VehicleReservation
 class will be responsible for processing the reservation and return of a vehicle:
 
-```
+```java
 public abstract class Vehicle {
-private String licenseNumber;
-private String stockNumber;
-private int passengerCapacity;
-private String barcode;
-private boolean hasSunroof;
-private VehicleStatus status;
-private String model;
-private String make;
-private int manufacturingYear;
-private int mileage;
+    private String licenseNumber;
+    private String stockNumber;
+    private int passengerCapacity;
+    private String barcode;
+    private boolean hasSunroof;
+    private VehicleStatus status;
+    private String model;
+    private String make;
+    private int manufacturingYear;
+    private int mileage;
 
-private List<VehicleLog> log;
+    private List<VehicleLog> log;
 
-public boolean reserveVehicle();
+    public boolean reserveVehicle();
 
-public boolean returnVehicle();
+    public boolean returnVehicle();
 }
 
 public class Car extends Vehicle {
-private CarType type;
+    private CarType type;
 }
 
 public class Van extends Vehicle {
-private VanType type;
+    private VanType type;
 }
 
 public class Truck extends Vehicle {
-private String type;
+    private String type;
 }
 
 // We can have similar definition for other vehicle types
@@ -3893,62 +3958,63 @@ private String type;
 //...
 
 public class VehicleLog {
-private String id;
-private VehicleLogType type;
-private String description;
-private Date creationDate;
+    private String id;
+    private VehicleLogType type;
+    private String description;
+    private Date creationDate;
 
-public bool update();
+    public bool update();
 
-public List<VehicleLogType> searchByLogType(VehicleLogType type);
+    public List<VehicleLogType> searchByLogType(VehicleLogType type);
 }
 
 public class VehicleReservation {
-private String reservationNumber;
-private Date creationDate;
-private ReservationStatus status;
-private Date dueDate;
-private Date returnDate;
-private String pickupLocationName;
-private String returnLocationName;
+    private String reservationNumber;
+    private Date creationDate;
+    private ReservationStatus status;
+    private Date dueDate;
+    private Date returnDate;
+    private String pickupLocationName;
+    private String returnLocationName;
 
-private int customerID;
-private Vehicle vehicle;
-private Bill bill;
-private List<AdditionalDriver> additionalDrivers;
-private List<Notification> notifications;
-private List<RentalInsurance> insurances;
-private List<Equipment> equipments;
-private List<Service> services;
+    private int customerID;
+    private Vehicle vehicle;
+    private Bill bill;
+    private List<AdditionalDriver> additionalDrivers;
+    private List<Notification> notifications;
+    private List<RentalInsurance> insurances;
+    private List<Equipment> equipments;
+    private List<Service> services;
 
-public static VehicleReservation fetchReservationDetails(String reservationNumber);
+    public static VehicleReservation fetchReservationDetails(String reservationNumber);
 
-public List<Passenger> getAdditionalDrivers();
+    public List<Passenger> getAdditionalDrivers();
 }
 ```
 
 **VehicleInventory and Search:** VehicleInventory will implement an interface ‘Search’ to facilitate the searching of
 vehicles:
 
-```
+```java
 public interface Search {
-public List<Vehicle> searchByType(String type);
-public List<Vehicle> searchByModel(String model);
+    public List<Vehicle> searchByType(String type);
+
+    public List<Vehicle> searchByModel(String model);
 }
 
 public class VehicleInventory implements Search {
-private HashMap<String, List<Vehicle>> vehicleTypes;
-private HashMap<String, List<Vehicle>> vehicleModels;
+    private HashMap<String, List<Vehicle>> vehicleTypes;
+    private HashMap<String, List<Vehicle>> vehicleModels;
 
-public List<Vehicle> searchByType(String query) {
+    public List<Vehicle> searchByType(String query) {
 // return all vehicles of the given type.
-return vehicleTypes.get(query);
-}
+        return vehicleTypes.get(query);
+    }
 
-public List<Vehicle> searchByModel(String query) {
+    public List<Vehicle> searchByModel(String query) {
 // return all vehicles of the given model.
-return vehicleModels.get(query);
-}
+        return vehicleModels.get(query);
+    }
 }
 ```
 
@@ -4054,188 +4120,195 @@ Here is the high-level definition for the classes described above:
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public enum ConnectionInvitationStatus {
-PENDING, ACCEPTED, CONFIRMED, REJECTED, CANCELED
+    PENDING, ACCEPTED, CONFIRMED, REJECTED, CANCELED
 }
 
 public enum AccountStatus {
-ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
+    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED, UNKNOWN
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Person, Member, and Admin:** These classes represent the different people that interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 
-private Account account;
+    private Account account;
 }
 
 public class Member extends Person {
-private Date dateOfMembership;
-private String headline;
-private byte[] photo;
-private List<Member> memberSuggestions;
-private List<Member> memberFollows;
-private List<Member> memberConnections;
-private List<Company> companyFollows;
-private List<Group> groupFollows;
-private Profile profile;
+    private Date dateOfMembership;
+    private String headline;
+    private byte[] photo;
+    private List<Member> memberSuggestions;
+    private List<Member> memberFollows;
+    private List<Member> memberConnections;
+    private List<Company> companyFollows;
+    private List<Group> groupFollows;
+    private Profile profile;
 
-public boolean sendMessage(Message message);
-public boolean createPost(Post post);
-public boolean sendConnectionInvitation(ConnectionInvitation invitation);
+    public boolean sendMessage(Message message);
+
+    public boolean createPost(Post post);
+
+    public boolean sendConnectionInvitation(ConnectionInvitation invitation);
 }
 
 public class Admin extends Person {
-public boolean blockUser(Customer customer);
-public boolean unblockUser(Customer customer);
+    public boolean blockUser(Customer customer);
+
+    public boolean unblockUser(Customer customer);
 }
 ```
 
 **Profile, Experience, etc:** A member’s profile will have their job experiences, educations, skills, etc:
 
-```
+```java
 public class Profile {
-private String summary;
-private List<Experience> experiences;
-private List<Education> educations;
-private List<Skill> skills;
-private List<Accomplishment> accomplishments;
-private List<Recommendation> recommendations;
-private List<Stat> stats;
+    private String summary;
+    private List<Experience> experiences;
+    private List<Education> educations;
+    private List<Skill> skills;
+    private List<Accomplishment> accomplishments;
+    private List<Recommendation> recommendations;
+    private List<Stat> stats;
 
-public boolean addExperience(Experience experience);
-public boolean addEducation(Education education);
-public boolean addSkill(Skill skill);
-public boolean addAccomplishment(Accomplishment accomplishment);
-public boolean addRecommendation(Recommendation recommendation);
+    public boolean addExperience(Experience experience);
+
+    public boolean addEducation(Education education);
+
+    public boolean addSkill(Skill skill);
+
+    public boolean addAccomplishment(Accomplishment accomplishment);
+
+    public boolean addRecommendation(Recommendation recommendation);
 }
 
 public class Experience {
-private String title;
-private String company;
-private String location;
-private Date from;
-private Date to;
-private String description;
+    private String title;
+    private String company;
+    private String location;
+    private Date from;
+    private Date to;
+    private String description;
 }
 ```
 
 **Company and JobPosting:** Companies can have multiple job postings:
 
-```
+```java
 public class Company {
-private String name;
-private String description;
-private String type;
-private int companySize;
+    private String name;
+    private String description;
+    private String type;
+    private int companySize;
 
-private List<JobPosting> activeJobPostings;
+    private List<JobPosting> activeJobPostings;
 }
 
 public class JobPosting {
-private Date dateOfPosting;
-private String description;
-private String employmentType;
-private String location;
-private boolean isFulfilled;
+    private Date dateOfPosting;
+    private String description;
+    private String employmentType;
+    private String location;
+    private boolean isFulfilled;
 }
 ```
 
 **Group, Post, and Message:** Members can create posts, send messages, and join groups:
 
-```
+```java
 public class Group {
-private String name;
-private String description;
-private int totalMembers;
-private List<Member> members;
+    private String name;
+    private String description;
+    private int totalMembers;
+    private List<Member> members;
 
-public boolean addMember(Member member);
+    public boolean addMember(Member member);
 
-public boolean updateDescription(String description);
+    public boolean updateDescription(String description);
 }
 
 public class Post {
-private String text;
-private int totalLikes;
-private int totalShares;
-private Member owner;
+    private String text;
+    private int totalLikes;
+    private int totalShares;
+    private Member owner;
 }
 
 public class Message {
-private Member[] sentTo;
-private String messageBody;
-private byte[] media;
+    private Member[] sentTo;
+    private String messageBody;
+    private byte[] media;
 }
 ```
 
 **Search interface and SearchIndex:** SearchIndex will implement the Search interface to facilitate searching for
 members, companies and job postings:
 
-```
+```java
 public interface Search {
-public List<Member> searchMember(String name);
+    public List<Member> searchMember(String name);
 
-public List<Company> searchCompany(String name);
+    public List<Company> searchCompany(String name);
 
-public List<JobPosting> searchJob(String title);
+    public List<JobPosting> searchJob(String title);
 }
 
 public class SearchIndex implements Search {
-HashMap<String, List<Member>> memberNames;
-HashMap<String, List<Company>> companyNames;
-HashMap<String, List<JobPosting>> jobTitles;
+    HashMap<String, List<Member>> memberNames;
+    HashMap<String, List<Company>> companyNames;
+    HashMap<String, List<JobPosting>> jobTitles;
 
-public boolean addMember(Member member) {
-if (memberNames.containsKey(member.getName())) {
-memberNames.get(member.getName()).add(member);
-} else {
-memberNames.put(member.getName(), member);
-}
-}
+    public boolean addMember(Member member) {
+        if (memberNames.containsKey(member.getName())) {
+            memberNames.get(member.getName()).add(member);
+        } else {
+            memberNames.put(member.getName(), member);
+        }
+    }
 
-public boolean addCompany(Company company);
+    public boolean addCompany(Company company);
 
-public boolean addJobPosting(JobPosting jobPosting);
+    public boolean addJobPosting(JobPosting jobPosting);
 
-public List<Member> searchMember(String name) {
-return memberNames.get(name);
-}
+    public List<Member> searchMember(String name) {
+        return memberNames.get(name);
+    }
 
-public List<Company> searchCompany(String name) {
-return companyNames.get(name);
-}
+    public List<Company> searchCompany(String name) {
+        return companyNames.get(name);
+    }
 
-public List<JobPosting> searchJob(String title) {
-return jobTitles.get(title);
-}
+    public List<JobPosting> searchJob(String title) {
+        return jobTitles.get(title);
+    }
 }
 ```
 
@@ -4327,202 +4400,204 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
+```java
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 
 public class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 }
 
 public enum MatchFormat {
-ODI,
-T20,
-TEST
+    ODI,
+    T20,
+    TEST
 }
 
 public enum MatchResult {
-LIVE,
-FINISHED,
-DRAWN,
-CANCELED
+    LIVE,
+    FINISHED,
+    DRAWN,
+    CANCELED
 }
 
 public enum UmpireType {
-FIELD,
-RESERVED,
-TV
+    FIELD,
+    RESERVED,
+    TV
 }
 
 public enum WicketType {
-BOLD,
-CAUGHT,
-STUMPED,
-RUN_OUT,
-LBW,
-RETIRED_HURT,
-HIT_WICKET,
-OBSTRUCTING
+    BOLD,
+    CAUGHT,
+    STUMPED,
+    RUN_OUT,
+    LBW,
+    RETIRED_HURT,
+    HIT_WICKET,
+    OBSTRUCTING
 }
 
 public enum BallType {
-NORMAL,
-WIDE,
-WICKET,
-NO_BALL
+    NORMAL,
+    WIDE,
+    WICKET,
+    NO_BALL
 }
 
 public enum RunType {
-NORMAL,
-FOUR,
-SIX,
-LEG_BYE,
-BYE,
-NO_BALL,
-OVERTHROW
+    NORMAL,
+    FOUR,
+    SIX,
+    LEG_BYE,
+    BYE,
+    NO_BALL,
+    OVERTHROW
 }
 ```
 
 **Admin, Player, Umpire, Referee, and Commentator:** These classes represent the different people that interact with our
 system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Player {
-private Person person;
-private ArrayList<PlayerContract> contracts;
+    private Person person;
+    private ArrayList<PlayerContract> contracts;
 
-public boolean addContract();
+    public boolean addContract();
 }
 
 public class Admin {
-private Person person;
+    private Person person;
 
-public boolean addMatch(Match match);
+    public boolean addMatch(Match match);
 
-public boolean addTeam(Team team);
+    public boolean addTeam(Team team);
 
-public boolean addTournament(Tournament tournament);
+    public boolean addTournament(Tournament tournament);
 }
 
 public class Umpire {
-private Person person;
+    private Person person;
 
-public boolean assignMatch(Match match);
+    public boolean assignMatch(Match match);
 }
 
 public class Referee {
-private Person person;
+    private Person person;
 
-public boolean assignMatch(Match match);
+    public boolean assignMatch(Match match);
 }
 
 public class Commentator {
-private Person person;
+    private Person person;
 
-public boolean assignMatch(Match match);
+    public boolean assignMatch(Match match);
 }
 ```
 
 **Team, TournamentSquad, and Playing11:** Team will announce a squad for a tournament, out of which, the playing 11 will
 be chosen:
 
-```
+```java
 public class Team {
-private String name;
-private List<Player> players;
-private List<News> news;
-private Coach coach;
+    private String name;
+    private List<Player> players;
+    private List<News> news;
+    private Coach coach;
 
-public boolean addTournamentSquad(TournamentSquad tournamentSquad);
-public boolean addPlayer(Player player);
-public boolean addNews(News news);
+    public boolean addTournamentSquad(TournamentSquad tournamentSquad);
+
+    public boolean addPlayer(Player player);
+
+    public boolean addNews(News news);
 }
 
 public class TournamentSquad {
-private List<Player> players;
-private List<TournamentStat> tournamentStats;
+    private List<Player> players;
+    private List<TournamentStat> tournamentStats;
 
-public boolean addPlayer(Player player);
+    public boolean addPlayer(Player player);
 }
 
 public class Playing11 {
-private List<Player> players;
-private Player twelfthMan;
+    private List<Player> players;
+    private Player twelfthMan;
 
-public boolean addPlayer(Player player);
+    public boolean addPlayer(Player player);
 }
 ```
 
 **Over, Ball, Wicket, Commentary, Inning, and Match:** Match will be an abstract class, extended by ODI, Test, and T20:
 
-```
+```java
 public class Over {
-private int number;
-private List<Ball> balls;
+    private int number;
+    private List<Ball> balls;
 
-public boolean addBall(Ball ball);
+    public boolean addBall(Ball ball);
 }
 
 public class Ball {
-private Player balledBy;
-private Player playedBy;
-private BallType type;
+    private Player balledBy;
+    private Player playedBy;
+    private BallType type;
 
-private Wicket wicket;
-private List<Run> runs;
-private Commentary commentary;
+    private Wicket wicket;
+    private List<Run> runs;
+    private Commentary commentary;
 
 }
 
 public class Wicket {
-private WicketType wicketType;
-private Player playerOut;
-private Player caughtBy;
-private Player runoutBy;
-private Player stumpedBy;
+    private WicketType wicketType;
+    private Player playerOut;
+    private Player caughtBy;
+    private Player runoutBy;
+    private Player stumpedBy;
 }
 
 public class Commentary {
-private String text;
-private Date createdAt;
-private Commentator createdBy;
+    private String text;
+    private Date createdAt;
+    private Commentator createdBy;
 }
 
 public class Inning {
-private int number;
-private Date startTime;
-private List<Over> overs;
+    private int number;
+    private Date startTime;
+    private List<Over> overs;
 
-public boolean addOver(Over over);
+    public boolean addOver(Over over);
 }
 
 public abstract class Match {
-private int number;
-private Date startTime;
-private MatchResult result;
+    private int number;
+    private Date startTime;
+    private MatchResult result;
 
-private Playing11[] teams;
-private List<Inning> innings;
-private List<Umpire> umpires;
-private Referee referee;
-private List<Commentator> commentators;
-private List<MatchStat> matchStats;
+    private Playing11[] teams;
+    private List<Inning> innings;
+    private List<Umpire> umpires;
+    private Referee referee;
+    private List<Commentator> commentators;
+    private List<MatchStat> matchStats;
 
-public boolean assignStadium(Stadium stadium);
+    public boolean assignStadium(Stadium stadium);
 
-public boolean assignReferee(Referee referee);
+    public boolean assignReferee(Referee referee);
 }
 
 public class ODI extends Match {
@@ -4626,225 +4701,240 @@ Here is the high-level definition for the classes described above.
 
 **Enums, data types, and constants:** Here are the required enums, data types, and constants:
 
-```
-public enum ConnectionInvitationStatus{
-PENDING,
-ACCEPTED,
-REJECTED,
-CANCELED
+```java
+public enum ConnectionInvitationStatus {
+    PENDING,
+    ACCEPTED,
+    REJECTED,
+    CANCELED
 }
 
-public enum AccountStatus{
-ACTIVE,
-CLOSED,
-CANCELED,
-BLACKLISTED,
-DISABLED
+public enum AccountStatus {
+    ACTIVE,
+    CLOSED,
+    CANCELED,
+    BLACKLISTED,
+    DISABLED
 }
 
 public class Address {
-private String streetAddress;
-private String city;
-private String state;
-private String zipCode;
-private String country;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String zipCode;
+    private String country;
 }
 ```
 
 **Account, Person, Member, and Admin:** These classes represent the different people that interact with our system:
 
-```
+```java
 // For simplicity, we are not defining getter and setter functions. The reader can
 // assume that all class attributes are private and accessed through their respective
 // public getter method and modified only through their public setter method.
 
 public class Account {
-private String id;
-private String password;
-private AccountStatus status;
+    private String id;
+    private String password;
+    private AccountStatus status;
 
-public boolean resetPassword();
+    public boolean resetPassword();
 }
 
 public abstract class Person {
-private String name;
-private Address address;
-private String email;
-private String phone;
+    private String name;
+    private Address address;
+    private String email;
+    private String phone;
 
-private Account account;
+    private Account account;
 }
 
 public class Member extends Person {
-private Integer memberId;
-private Date dateOfMembership;
-private String name;
+    private Integer memberId;
+    private Date dateOfMembership;
+    private String name;
 
-private Profile profile;
-private HashSet<Integer> memberFollows;
-private HashSet<Integer> memberConnections;
-private HashSet<Integer> pageFollows;
-private HashSet<Integer> memberSuggestions;
-private HashSet<ConnectionInvitation> connectionInvitations;
-private HashSet<Integer> groupFollows;
+    private Profile profile;
+    private HashSet<Integer> memberFollows;
+    private HashSet<Integer> memberConnections;
+    private HashSet<Integer> pageFollows;
+    private HashSet<Integer> memberSuggestions;
+    private HashSet<ConnectionInvitation> connectionInvitations;
+    private HashSet<Integer> groupFollows;
 
-public boolean sendMessage(Message message);
-public boolean createPost(Post post);
-public boolean sendConnectionInvitation(ConnectionInvitation invitation);
-private Map<Integer, Integer> searchMemberSuggestions();
+    public boolean sendMessage(Message message);
+
+    public boolean createPost(Post post);
+
+    public boolean sendConnectionInvitation(ConnectionInvitation invitation);
+
+    private Map<Integer, Integer> searchMemberSuggestions();
 }
 
 public class Admin extends Person {
-public boolean blockUser(Customer customer);
-public boolean unblockUser(Customer customer);
-public boolean enablePage(Page page);
-public boolean disablePage(Page page);
+    public boolean blockUser(Customer customer);
+
+    public boolean unblockUser(Customer customer);
+
+    public boolean enablePage(Page page);
+
+    public boolean disablePage(Page page);
 }
 
 public class ConnectionInvitation {
-private Member memberInvited;
-private ConnectionInvitationStatus status;
-private Date dateCreated;
-private Date dateUpdated;
+    private Member memberInvited;
+    private ConnectionInvitationStatus status;
+    private Date dateCreated;
+    private Date dateUpdated;
 
-public bool acceptConnection();
-public bool rejectConnection();
+    public bool acceptConnection();
+
+    public bool rejectConnection();
 }
 ```
 
 **Profile and Work:** A member’s profile will have their work experiences, educations, places, etc:
 
-```
+```java
 public class Profile {
-private byte[] profilePicture;
-private byte[] coverPhoto;
-private String gender;
+    private byte[] profilePicture;
+    private byte[] coverPhoto;
+    private String gender;
 
-private List<Work> workExperiences;
-private List<Education> educations;
-private List<Place> places;
-private List<Stat> stats;
+    private List<Work> workExperiences;
+    private List<Education> educations;
+    private List<Place> places;
+    private List<Stat> stats;
 
-public boolean addWorkExperience(Work work);
-public boolean addEducation(Education education);
-public boolean addPlace(Place place);
+    public boolean addWorkExperience(Work work);
+
+    public boolean addEducation(Education education);
+
+    public boolean addPlace(Place place);
 }
 
 public class Work {
-private String title;
-private String company;
-private String location;
-private Date from;
-private Date to;
-private String description;
+    private String title;
+    private String company;
+    private String location;
+    private Date from;
+    private Date to;
+    private String description;
 }
 ```
 
 **Page and Recommendation:** Each page can have multiple recommendations, and members will follow/like pages:
 
-```
+```java
 public class Page {
-private Integer pageId;
-private String name;
-private String description;
-private String type;
-private int totalMembers;
-private List<Recommendation> recommendation;
+    private Integer pageId;
+    private String name;
+    private String description;
+    private String type;
+    private int totalMembers;
+    private List<Recommendation> recommendation;
 
-private List<Recommendation> getRecommendation();
+    private List<Recommendation> getRecommendation();
 }
 
 public class Recommendation {
-private Integer recommendationId;
-private int rating;
-private String description;
-private Date createdAt;
+    private Integer recommendationId;
+    private int rating;
+    private String description;
+    private Date createdAt;
 }
 ```
 
 **Group, Post, Message, and Comment:** Members can create posts, comment on posts, send messages and join groups:
 
-```
+```java
 public class Group {
-private Integer groupId;
-private String name;
-private String description;
-private int totalMembers;
-private List<Member> members;
+    private Integer groupId;
+    private String name;
+    private String description;
+    private int totalMembers;
+    private List<Member> members;
 
-public boolean addMember(Member member);
-public boolean updateDescription(String description);
+    public boolean addMember(Member member);
+
+    public boolean updateDescription(String description);
 }
 
 public class Post {
-private Integer postId;
-private String text;
-private int totalLikes;
-private int totalShares;
-private Member owner;
+    private Integer postId;
+    private String text;
+    private int totalLikes;
+    private int totalShares;
+    private Member owner;
 }
 
 public class Message {
-private Integer messageId;
-private Member[] sentTo;
-private String messageBody;
-private byte[] media;
+    private Integer messageId;
+    private Member[] sentTo;
+    private String messageBody;
+    private byte[] media;
 
-public boolean addMember(Member member);
+    public boolean addMember(Member member);
 }
 
 public class Comment {
-private Integer commentId;
-private String text;
-private int totalLikes;
-private Member owner;
+    private Integer commentId;
+    private String text;
+    private int totalLikes;
+    private Member owner;
 }
 ```
 
 **Search interface and SearchIndex:** SearchIndex will implement Search to facilitate searching of members, groups,
 pages, and posts:
 
-```
+```java
 public interface Search {
-public List<Member> searchMember(String name);
-public List<Group> searchGroup(String name);
-public List<Page> searchPage(String name);
-public List<Post> searchPost(String word);
+    public List<Member> searchMember(String name);
+
+    public List<Group> searchGroup(String name);
+
+    public List<Page> searchPage(String name);
+
+    public List<Post> searchPost(String word);
 }
 
 public class SearchIndex implements Search {
-HashMap<String, List<Member>> memberNames;
-HashMap<String, List<Group>> groupNames;
-HashMap<String, List<Page>> pageTitles;
-HashMap<String, List<Post>> posts;
+    HashMap<String, List<Member>> memberNames;
+    HashMap<String, List<Group>> groupNames;
+    HashMap<String, List<Page>> pageTitles;
+    HashMap<String, List<Post>> posts;
 
-public boolean addMember(Member member) {
-if(memberNames.containsKey(member.getName())) {
-memberNames.get(member.getName()).add(member);
-} else {
-memberNames.put(member.getName(), member);
-}
-}
+    public boolean addMember(Member member) {
+        if (memberNames.containsKey(member.getName())) {
+            memberNames.get(member.getName()).add(member);
+        } else {
+            memberNames.put(member.getName(), member);
+        }
+    }
 
-public boolean addGroup(Group group);
-public boolean addPage(Page page);
-public boolean addPost(Post post);
+    public boolean addGroup(Group group);
 
-public List<Member> searchMember(String name) {
-return memberNames.get(name);
-}
+    public boolean addPage(Page page);
 
-public List<Group> searchGroup(String name) {
-return groupNames.get(name);
-}
+    public boolean addPost(Post post);
 
-public List<Page> searchPage(String name) {
-return pageTitles.get(name);
-}
+    public List<Member> searchMember(String name) {
+        return memberNames.get(name);
+    }
 
-public List<Post> searchPost(String word) {
-return posts.get(word);
-}
+    public List<Group> searchGroup(String name) {
+        return groupNames.get(name);
+    }
+
+    public List<Page> searchPage(String name) {
+        return pageTitles.get(name);
+    }
+
+    public List<Post> searchPost(String word) {
+        return posts.get(word);
+    }
 }
 ```
 
@@ -4856,62 +4946,65 @@ There can be many strategies to search for connection suggestions; we will do a 
 find people who have the most connections with each other. These people could be good candidates for a connection
 suggestion, here is the sample Java code:
 
-```
+```java
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import static java.util.Collections.reverseOrder;
 
 public class Member extends Person {
-private Integer memberId;
-private Date dateOfMembership;
-private String name;
+    private Integer memberId;
+    private Date dateOfMembership;
+    private String name;
 
-private Profile profile;
-private HashSet<Integer> memberFollows;
-private HashSet<Integer> memberConnections;
-private HashSet<Integer> pageFollows;
-private HashSet<Integer> memberSuggestions;
-private HashSet<ConnectionInvitation> connectionInvitations;
-private HashSet<Integer> groupFollows;
+    private Profile profile;
+    private HashSet<Integer> memberFollows;
+    private HashSet<Integer> memberConnections;
+    private HashSet<Integer> pageFollows;
+    private HashSet<Integer> memberSuggestions;
+    private HashSet<ConnectionInvitation> connectionInvitations;
+    private HashSet<Integer> groupFollows;
 
-public boolean sendMessage(Message message);
-public boolean createPost(Post post);
-public boolean sendConnectionInvitation(ConnectionInvitation invitation);
+    public boolean sendMessage(Message message);
 
-private Map<Integer, Integer> searchMemberSuggestions() {
-Map<Integer, Integer> suggestions = new HashMap<>();
-for(Integer memberId : this.memberConnections) {
-HashSet<Integer> firstLevelConnections = new Member(memberId).getMemberConnections());
-for(Integer firstLevelConnectionId : firstLevelConnections) {
-this.findMemberSuggestion(suggestions, firstLevelConnectionId);
-HashSet<Integer> secondLevelConnections = new Member(firstLevelConnectionId).getMemberConnections());
-for(Integer secondLevelConnectionId : secondLevelConnections) {
-  this.findMemberSuggestion(suggestions, secondLevelConnectionId);
-}
-}
-}
+    public boolean createPost(Post post);
+
+    public boolean sendConnectionInvitation(ConnectionInvitation invitation);
+
+    private Map<Integer, Integer> searchMemberSuggestions() {
+        Map<Integer, Integer> suggestions = new HashMap<>();
+        for (Integer memberId : this.memberConnections) {
+            HashSet<Integer> firstLevelConnections = new Member(memberId).getMemberConnections();
+            for (Integer firstLevelConnectionId : firstLevelConnections) {
+                this.findMemberSuggestion(suggestions, firstLevelConnectionId);
+                HashSet<Integer> secondLevelConnections = new Member(firstLevelConnectionId).getMemberConnections();
+                for (Integer secondLevelConnectionId : secondLevelConnections) {
+                    this.findMemberSuggestion(suggestions, secondLevelConnectionId);
+                }
+            }
+        }
 
 // sort by value (increasing count), i.e., by highest number of mutual connection count
-Map<Integer, Integer> result = new LinkedHashMap<>();
-suggestions.entrySet().stream()
-.sorted(reverseOrder(Map.Entry.comparingByValue()))
-.forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
+        Map<Integer, Integer> result = new LinkedHashMap<>();
+        suggestions.entrySet().stream()
+                .sorted(reverseOrder(Map.Entry.comparingByValue()))
+                .forEachOrdered(x -> result.put(x.getKey(), x.getValue()));
 
-return result;
-}
+        return result;
+    }
 
-private void findMemberSuggestion(Map<Integer, Integer> suggestions, Integer connectionId) {
+    private void findMemberSuggestion(Map<Integer, Integer> suggestions, Integer connectionId) {
 // return if the proposed suggestion is already a connection or if there is a
 // pending connection invitation
-if(this.memberConnections.contains(connectionId) ||
-this.connectionInvitations.contains(connectionId)) {
-return;
-}
+        if (this.memberConnections.contains(connectionId) ||
+                this.connectionInvitations.contains(connectionId)) {
+            return;
+        }
 
-int count = suggestions.containsKey(connectionId) ? suggestions.get(connectionId) : 0;
-suggestions.put(connectionId, count + 1);
-}
+        int count = suggestions.containsKey(connectionId) ? suggestions.get(connectionId) : 0;
+        suggestions.put(connectionId, count + 1);
+    }
 }
 ```
